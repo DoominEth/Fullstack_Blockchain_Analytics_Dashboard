@@ -1,2 +1,6 @@
-cd ../Backend-Python
-EnvBuilder\blockchainDataEnv\Scripts\python.exe Scripts/data.py
+cd ..
+
+EnvBuilder\blockchainDataEnv\Scripts\activate
+
+cd Backend-Python
+python Scripts/data.py

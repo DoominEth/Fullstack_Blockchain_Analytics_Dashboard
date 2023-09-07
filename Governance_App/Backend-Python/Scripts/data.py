@@ -1,13 +1,13 @@
 from flask import Flask, jsonify
+from flask_cors import CORS  
 import pandas as pd
 import numpy as np
 import sys
 
 print("Python interpreter path:", sys.executable)
 
-
-
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/api/data', methods=['GET'])
 def get_data():

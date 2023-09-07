@@ -26,3 +26,4 @@ cryo_python==0.1.2
 ctc
 polars
 pyarrow
+Flask-CORS
