@@ -1,21 +1,30 @@
 const express = require('express');
 const axios = require('axios');
-const cors = require('cors');  // Import CORS package
+const cors = require('cors');
+const NodeCache = require("node-cache");  // Import node-cache
 
 const app = express();
+const myCache = new NodeCache({ stdTTL: 300 }); // Cache for 300 seconds
 
-app.use(cors());  // Use CORS middleware
+app.use(cors());
 
 app.get('/api/data', async (req, res) => {
-  try {
-    const response = await axios.get('http://127.0.0.1:5000/api/data');
-    res.json(response.data);
-  } catch (error) {
-    console.error('Error details:', error.response ? error.response.data : error);  // Log the error details
-    res.status(500).send('Internal Server Error');
-  }
+    const cachedData = myCache.get("randomData");  // Check if data exists in cache
+
+    if (cachedData) {
+        return res.json(cachedData);
+    }
+
+    try {
+        const response = await axios.get('http://127.0.0.1:5000/api/data');
+        myCache.set("randomData", response.data); // Store data in cache
+        res.json(response.data);
+    } catch (error) {
+        console.error('Error details:', error.response ? error.response.data : error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 app.listen(3001, () => {
-  console.log('Node.js server running on http://localhost:3001');
+    console.log('Node.js server running on http://localhost:3001');
 });

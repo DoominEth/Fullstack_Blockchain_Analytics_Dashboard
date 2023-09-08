@@ -6,11 +6,15 @@ import Navbar from './components/Navbar';
 function App() {
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        {/* Add other routes as needed */}
-      </Routes>
+      <div style={{ display: 'flex' }}>
+        <Navbar />
+        <div style={{ flex: 1, paddingLeft: 360 }}> {/* paddingLeft is the width of the sidebar */}
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            {/* Add other routes as needed */}
+          </Routes>
+        </div>
+      </div>
     </Router>
   );
 }
