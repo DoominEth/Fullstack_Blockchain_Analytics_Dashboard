@@ -1,10 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PlotGraph from '../components/graphs/PlotGraph';
 import CardWrapper from '../components/CardWrapper'
 import { Grid } from '@mui/material';
 
 function HomePage() {
   const [graphDimensions, setGraphDimensions] = useState({ width: 400, height: 400 });
+
+  // This is where the useEffect code should be placed:
+  useEffect(() => {
+    const fetchData = async (datatype, start_block, end_block, contract_address) => {
+    const response = await fetch(`http://localhost:3001/api/blockchain-data?datatype=${datatype}&start_block=${start_block}&end_block=${end_block}&contract_address=${contract_address}`);
+
+      const data = await response.json();
+    
+      console.log("Fetched Data:", data);  // Log the data to the console
+    
+      return data;
+    };
+
+    // Usage
+    fetchData("transactions", 17_000_000, 17_000_025, "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2");
+    
+  }, []); 
+
+
 
   return (
     <div>
