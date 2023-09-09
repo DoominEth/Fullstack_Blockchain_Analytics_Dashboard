@@ -34,9 +34,8 @@ def blockchain_data():
     if not (datatype and start_block and end_block and contract_address):
         return jsonify(error="Missing or invalid parameters"), 400
 
-    data = blockchainData.get_blockchain_data(datatype, start_block, end_block, contract_address)
+    data_df = blockchainData.get_blockchain_data(datatype, start_block, end_block, contract_address)
 
-    data_df = data.to_pandas()
     data_dict = data_df.to_dict(orient='records')  # Store the list of dictionaries
     return jsonify(data=data_dict)
 

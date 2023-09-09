@@ -6,23 +6,32 @@ import { Grid } from '@mui/material';
 function HomePage() {
   const [graphDimensions, setGraphDimensions] = useState({ width: 400, height: 400 });
 
+const [fetchedData, setFetchedData] = useState(null); // State to store fetched data
+
   // This is where the useEffect code should be placed:
   useEffect(() => {
     const fetchData = async (datatype, start_block, end_block, contract_address) => {
-    const response = await fetch(`http://localhost:3001/api/blockchain-data?datatype=${datatype}&start_block=${start_block}&end_block=${end_block}&contract_address=${contract_address}`);
+      try {
+        const response = await fetch(
+          `http://localhost:3001/api/blockchain-data?datatype=${datatype}&start_block=${start_block}&end_block=${end_block}&contract_address=${contract_address}`
+        );
 
-      const data = await response.json();
-    
-      console.log("Fetched Data:", data);  // Log the data to the console
-    
-      return data;
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Fetched Data:", data); // Log the data to the console
+          setFetchedData(data); // Store the fetched data in state
+          window.fetchedData = data; // Expose it globally
+        } else {
+          console.error('Error fetching data:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
 
     // Usage
-    fetchData("transactions", 17_000_000, 17_000_025, "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2");
-    
+    fetchData("transactions", 17000000, 17000025, "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2");
   }, []); 
-
 
 
   return (
