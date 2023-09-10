@@ -57,16 +57,51 @@ async function ensureTableExists(tableName) {
 async function fetchFromCache(tableName, start_block, end_block) {
   await ensureTableExists(tableName);
   
-  const rangeQuery = `
-    SELECT * 
-    FROM ${tableName} 
-    WHERE block_number BETWEEN $1 AND $2;
-  `;
+const rangeQuery = `
+  SELECT * 
+  FROM ${tableName} 
+  WHERE block_number BETWEEN $1 AND $2
+  ORDER BY block_number ASC;
+`;
+
 
   const result = await pool.query(rangeQuery, [start_block, end_block]);
   return result.rows;
 }
 
+
+async function insertIntoCache(tableName, data) {
+    await ensureTableExists(tableName);
+    if (data.length === 0) return;
+
+    const columns = Object.keys(data[0]);
+    const insertColumns = columns.join(", ");
+
+    // Build the placeholders for each row of data
+    const placeholders = data.map((_, rowIndex) => {
+        return `(${columns.map((_, colIndex) => `$${rowIndex * columns.length + colIndex + 1}`).join(', ')})`;
+    }).join(', ');
+
+    // Flatten the data for parameter binding
+    const insertValues = data.flatMap(row => columns.map(col => row[col]));
+
+    // Use ON CONFLICT to avoid inserting duplicates
+    const onConflictDoNothing = `
+      ON CONFLICT (transaction_hash) DO NOTHING
+    `;
+
+    const insertDataQuery = `
+      INSERT INTO ${tableName} (${insertColumns})
+      VALUES ${placeholders}
+      ${onConflictDoNothing}
+    `;
+
+    await pool.query(insertDataQuery, insertValues);
+}
+
+
+/*
+//Old way
 async function insertIntoCache(tableName, data) {
   await ensureTableExists(tableName);
   //Data names
@@ -99,6 +134,7 @@ async function insertIntoCache(tableName, data) {
     await pool.query(insertDataQuery, insertValues);
   }
 }
+*/
 
 
 module.exports = {

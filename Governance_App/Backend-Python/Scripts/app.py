@@ -30,7 +30,7 @@ def blockchain_data():
     end_block = request.args.get('end_block', type=int)
     contract_address = request.args.get('contract_address')
 
-    # You can add validation checks here
+    #Missing Data check
     if not (datatype and start_block and end_block and contract_address):
         return jsonify(error="Missing or invalid parameters"), 400
 

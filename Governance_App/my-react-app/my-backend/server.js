@@ -57,10 +57,10 @@ app.get('/api/blockchain-data', async (req, res) => {
             console.log("Pushing New data to cache")
         }
 
-        //Send the data
-        const mergedData = [...missingData, ...cachedData].filter(block => block.block_number >= start_block && block.block_number <= end_block);
-        res.json(mergedData.sort((a, b) => a.block_number - b.block_number));
 
+        //Send the data
+        const mergedData = [...missingData, ...cachedData].filter(block => block.block_number >= start_block && block.block_number < end_block);
+        res.json(mergedData.sort((a, b) => a.block_number - b.block_number));
     } 
     else 
     {

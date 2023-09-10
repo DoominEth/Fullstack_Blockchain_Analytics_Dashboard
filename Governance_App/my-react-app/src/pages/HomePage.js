@@ -35,7 +35,7 @@ const [fetchedData, setFetchedData] = useState(null); // State to store fetched 
     //16999995
     //17000025
     //17000030
-    fetchData("transactions", 16999995, 17000030, "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2");
+    fetchData("transactions", 17000000, 17000025, "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2");
   }, []); 
 
 
