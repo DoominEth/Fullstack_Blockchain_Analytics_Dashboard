@@ -22,3 +22,7 @@ def get_blockchain_data(datatype, start_block, end_block, contract_address):
     data_df['to_address'] = data_df['to_address'].fillna('0x0000000000000000000000000000000000000000')
     data_df = data_df.drop(['max_priority_fee_per_gas', 'max_fee_per_gas'], axis=1)
     return data_df
+
+
+
+

@@ -10,50 +10,71 @@ const app = express();
 
 app.use(cors());
 
-app.get('/api/data', async (req, res) => {
-    // const cachedData = myCache.get("randomData"); // Check if data exists in cache
-
-    // if (cachedData) {
-    //     return res.json(cachedData);
-    // }
-
-    try {
-        const response = await axios.get('http://127.0.0.1:5000/api/data');
-        // myCache.set("randomData", response.data); // Store data in cache
-        res.json(response.data);
-    } catch (error) {
-        console.error('Error details:', error.response ? error.response.data : error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
 app.get('/api/blockchain-data', async (req, res) => {
-    console.log(req.query.contract_address);
     const tableName = `transactions_${req.query.contract_address.replace(/[^a-z0-9]/gi, '')}`;
-    const start_block = req.query.start_block; // Assuming you're passing these as query parameters
-    const end_block = req.query.end_block;
+    const start_block = parseInt(req.query.start_block); 
+    const end_block = parseInt(req.query.end_block);
+    const datatype = req.query.datatype
 
-    // Commenting out the attempt to fetch data from the database cache
+    // Fetch Cache Data
     const cachedData = await fetchFromCache(tableName, start_block, end_block);
 
-    if (cachedData && cachedData.length > 0) {
-        return res.json(cachedData);
-    }
+    let missingData = [];
 
-    const backendUrl = `http://127.0.0.1:5000/api/blockchain-data?${new URLSearchParams(req.query).toString()}`;
+    if (cachedData.length > 0) {
+        const cachedStart = cachedData[0].block_number;
+        const cachedEnd = (cachedData[cachedData.length - 1].block_number) + 1; //Plus one as the call is UPTO the end_block
 
-    try {
+        console.log("Datatype:", datatype)
+        console.log("CacheStart: ", cachedStart)
+        console.log("CacheStart: ", cachedEnd)
+        
+        // Fetch data before the cache if missing
+        
+        if (start_block < cachedStart) {
+            console.log("")
+            const backendUrlBefore = `http://127.0.0.1:5000/api/blockchain-data?datatype=${req.query.datatype}&contract_address=${req.query.contract_address}&start_block=${start_block}&end_block=${cachedStart - 1}`;
+            const responseBefore = await axios.get(backendUrlBefore);
+
+            missingData = [...missingData, ...responseBefore.data.data];
+            console.log("Collecting data before init")
+        }
+                
+        
+        // Fetch data after the cache if missing
+        if (end_block > cachedEnd) {
+            const backendUrlAfter = `http://127.0.0.1:5000/api/blockchain-data?datatype=${req.query.datatype}&contract_address=${req.query.contract_address}&start_block=${cachedEnd}&end_block=${end_block}`;
+            const responseAfter = await axios.get(backendUrlAfter);
+            missingData = [...missingData, ...responseAfter.data.data];
+            console.log("Collecting data after init")
+        }
+
+        
+
+        //Add missing data to the cache
+        if (missingData.length > 0) {
+            await insertIntoCache(tableName, missingData);
+            console.log("Pushing New data to cache")
+        }
+
+        //Send the data
+        const mergedData = [...missingData, ...cachedData].filter(block => block.block_number >= start_block && block.block_number <= end_block);
+        res.json(mergedData.sort((a, b) => a.block_number - b.block_number));
+
+    } 
+    else 
+    {
+        //Get data and send
+        const backendUrl = `http://127.0.0.1:5000/api/blockchain-data?datatype=${req.query.datatype}&contract_address=${req.query.contract_address}&start_block=${start_block}&end_block=${end_block}`;
         const response = await axios.get(backendUrl);
-
-        // Commenting out the saving of data into the database cache
-        await insertIntoCache(tableName, response.data);
-
+        await insertIntoCache(tableName, response.data.data);
         res.json(response.data);
-    } catch (error) {
-        console.error('Error details:', error.response ? error.response.data : error);
-        res.status(500).send('Internal Server Error');
+        
     }
+        
+
 });
+
 
 app.listen(3001, () => {
     console.log('Node.js server running on http://localhost:3001');

@@ -23,7 +23,7 @@ pool.connect()
 const columnDefinitions = [
   'block_number INT',
   'transaction_index INT',
-  'transaction_hash TEXT',
+  'transaction_hash TEXT UNIQUE',
   'nonce INT',
   'from_address TEXT',
   'to_address TEXT',
@@ -36,8 +36,6 @@ const columnDefinitions = [
 ].join(', ');
 
 async function ensureTableExists(tableName) {
-
-
   const tableExistsQuery = `
     SELECT EXISTS (
       SELECT FROM information_schema.tables 
@@ -71,41 +69,36 @@ async function fetchFromCache(tableName, start_block, end_block) {
 
 async function insertIntoCache(tableName, data) {
   await ensureTableExists(tableName);
+  //Data names
+  const columns = Object.keys(data[0]);
 
-  console.log("Preparsed Data: ", data);
 
-  // No need for parsing as the data is already an object.
-  const parsedData = data.data;
-
-  console.log("Parsed Data 0: ", parsedData[0]);
-
-  // Adjusted the way to get column names
-  const columns = Object.keys(parsedData[0]); 
-
-for (const block of parsedData) {
+  //Input data to DB Cache
+  for (const block of data) {
     const insertValues = [];
 
     for (const col of columns) {
         insertValues.push(block[col]);
     }
 
-    console.log("Values:", insertValues);
     const insertColumns = columns.join(", ");
+    
+    const placeholders = Array.from({ length: insertValues.length }, (_, index) => `$${index + 1}`).join(", ");
+
+    //Dont include data that is already in (Unique Tx_Hash)
+    const onConflictDoNothing = `
+      ON CONFLICT (transaction_hash) DO NOTHING
+    `;
 
     const insertDataQuery = `
       INSERT INTO ${tableName} (${insertColumns})
-      VALUES (${Array.from({ length: insertValues.length }, (_, index) => `$${index + 1}`).join(", ")})
+      VALUES (${placeholders})
+      ${onConflictDoNothing}
     `;
 
-    console.log("Query:", insertDataQuery);
-
     await pool.query(insertDataQuery, insertValues);
+  }
 }
-}
-
-
-
-
 
 
 module.exports = {
