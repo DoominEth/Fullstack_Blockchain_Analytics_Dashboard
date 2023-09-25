@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import PlotGraph from '../components/graphs/PlotGraph';
 import CardWrapper from '../components/CardWrapper'
 import { Grid } from '@mui/material';
+import BarChartComponent from '../components/graphs/barGraph.js';
 
 function HomePage() {
   const [graphDimensions, setGraphDimensions] = useState({ width: 400, height: 400 });
-
+const [graphDimensionsBar, setGraphDimensionsBar] = useState({ width: 2000, height: 400 });
 const [fetchedData, setFetchedData] = useState(null); // State to store fetched data
 
-  // This is where the useEffect code should be placed:
+  // Place Holder for getting Transaction data
   useEffect(() => {
     const fetchData = async (datatype, start_block, end_block, contract_address) => {
       try {
@@ -35,13 +36,29 @@ const [fetchedData, setFetchedData] = useState(null); // State to store fetched 
     //16999995
     //17000025
     //17000030
-    fetchData("transactions", 17000000, 17000025, "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2");
+    fetchData("transactions", 17000000, 17000001, "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2");
   }, []); 
+
+
+
+
+
 
 
   return (
     <div>
+      
       <h1>Home Page</h1>
+      <Grid item xs={12} sm={6} md={4}>
+          <CardWrapper title="Bar Chart">
+            <BarChartComponent 
+              data={fetchedData} 
+              width={graphDimensionsBar.width} 
+              height={graphDimensionsBar.height}
+            />
+          </CardWrapper>
+          </Grid>
+
       <Grid container spacing={3}> {/* spacing={3} adds a gap between the grid items */}
         <Grid item xs={12} sm={6} md={4}>
           <CardWrapper title="Graph 1">

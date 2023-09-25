@@ -25,4 +25,13 @@ def get_blockchain_data(datatype, start_block, end_block, contract_address):
 
 
 
-
+def get_blockchain_data_logs(datatype, start_block, end_block, contract_address):
+    data = cryo.collect(
+        datatype,
+        start_block=start_block,
+        end_block=end_block,
+        hex=True,
+        contract=contract_address
+    )
+    data_df = data.to_pandas()
+    return data_df

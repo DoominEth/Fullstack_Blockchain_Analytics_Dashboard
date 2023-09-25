@@ -27,3 +27,4 @@ ctc
 polars
 pyarrow
 Flask-CORS
+psycopg2

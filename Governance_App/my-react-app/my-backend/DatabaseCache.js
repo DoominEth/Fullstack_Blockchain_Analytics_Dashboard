@@ -100,43 +100,6 @@ async function insertIntoCache(tableName, data) {
 }
 
 
-/*
-//Old way
-async function insertIntoCache(tableName, data) {
-  await ensureTableExists(tableName);
-  //Data names
-  const columns = Object.keys(data[0]);
-
-
-  //Input data to DB Cache
-  for (const block of data) {
-    const insertValues = [];
-
-    for (const col of columns) {
-        insertValues.push(block[col]);
-    }
-
-    const insertColumns = columns.join(", ");
-    
-    const placeholders = Array.from({ length: insertValues.length }, (_, index) => `$${index + 1}`).join(", ");
-
-    //Dont include data that is already in (Unique Tx_Hash)
-    const onConflictDoNothing = `
-      ON CONFLICT (transaction_hash) DO NOTHING
-    `;
-
-    const insertDataQuery = `
-      INSERT INTO ${tableName} (${insertColumns})
-      VALUES (${placeholders})
-      ${onConflictDoNothing}
-    `;
-
-    await pool.query(insertDataQuery, insertValues);
-  }
-}
-*/
-
-
 module.exports = {
   fetchFromCache,
   insertIntoCache,
