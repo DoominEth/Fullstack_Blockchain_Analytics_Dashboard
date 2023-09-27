@@ -5,7 +5,8 @@ from services.data_service import (
     build_smart_contract_service, 
     hash_log_events_service, 
     parse_log_events_service,
-    hash_functions_service
+    hash_functions_service,
+    contract_references_service
 )
 from utils.helpers.validation import ValidationError 
 
@@ -103,6 +104,25 @@ def hash_functions():
     
     return jsonify(error="Unable to hash data"), 500
 
+@api_bp.route('/contract-references', methods=['POST'])
+def contract_references_route():
+    contract_address = request.json.get('contract_address')
+    
+    if not contract_address:
+        return jsonify(error="Contract address is required"), 400
+
+    try:
+        # Call the contract_references service and get the result.
+        result = contract_references_service(contract_address)
+    except Exception as e:  # Catch exceptions raised by contract_references
+        return jsonify(error=str(e)), 400
+    
+    if result is not None:
+        # If the result is not None, return it as JSON.
+        result_data = result.to_json(orient="records")
+        return jsonify(data=result_data, status="Data fetched successfully")
+    
+    return jsonify(error="Unable to fetch data"), 500
 
 
 #request 

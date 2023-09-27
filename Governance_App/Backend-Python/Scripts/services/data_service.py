@@ -15,6 +15,9 @@ from utils.database.eventHashDB import save_event_hash_to_database, get_event_ha
 from utils.algorithms.parse_event_signatures import parse_event_logs
 from utils.database.parsedEventLogsDB import get_all_parsed_event_logs_by_address, save_parsed_event_logs_to_database
 from utils.database.functionHashDB import save_function_hash_to_database , get_function_hash_by_contract_address
+from utils.algorithms.smart_contract_references import detect_smart_contract_references
+from utils.database.smartContractReferenceDB import save_contract_references_to_database, get_contract_references_by_contract_address
+
 
 def get_data_service():
     data = get_data_from_db()
@@ -119,8 +122,8 @@ def hash_functions_service(contract_address):
         functions = [item for item in contract_instance.abi if item['type'] == 'function']
         hashed_functions = createSigFromEvents(functions)
         #Save Data
-        print("Hashed Functions" , hashed_functions)
-        print("Function Names" , functions)
+        #print("Hashed Functions" , hashed_functions)
+        #print("Function Names" , functions)
         save_function_hash_to_database(contract_instance.address, functions, hashed_functions)
         fetchedData = get_function_hash_by_contract_address(contract_address)
         return fetchedData
@@ -128,5 +131,22 @@ def hash_functions_service(contract_address):
    return fetchedData 
 
     
+def contract_references_service(contract_address):
+    
+    #check if data exists
+    referenceAddresses = get_contract_references_by_contract_address(contract_address)
 
+    if referenceAddresses.empty:
+        #create data
+        contract_instance = Config.contract_helper.createContract(contract_address)
+        childAddresses = detect_smart_contract_references(contract_instance)
+
+        save_contract_references_to_database(contract_address, childAddresses)
+
+        referenceAddresses = get_contract_references_by_contract_address(contract_address)
+
+        print("Child Addresses: ", referenceAddresses)
+        return referenceAddresses
+
+    return referenceAddresses
     

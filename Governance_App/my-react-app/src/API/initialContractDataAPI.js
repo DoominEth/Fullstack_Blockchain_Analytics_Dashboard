@@ -59,3 +59,17 @@ export const fetchHashFunctions = async (contractAddress) => {
   const data = await response.json();
   return data;
 };
+
+export const fetchContractReferences = async (contractAddress) => {
+  const response = await fetch('http://localhost:3001/api/contract-references', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      contract_address: contractAddress
+    })
+  });
+  const data = await response.json();
+  return data;
+};

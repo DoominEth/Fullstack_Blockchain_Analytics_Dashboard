@@ -74,7 +74,19 @@ app.post('/api/hash-functions', async (req, res) => {
   }
 });
 
-
+app.post('/api/contract-references', async (req, res) => {
+  try {
+    const { contract_address } = req.body;
+    const backendUrl = `http://127.0.0.1:5000/api/contract-references`;
+    const response = await axios.post(backendUrl, {
+      contract_address
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
 app.get('/api/blockchain-data', async (req, res) => {
