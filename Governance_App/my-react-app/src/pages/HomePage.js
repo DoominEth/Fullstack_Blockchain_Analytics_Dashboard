@@ -9,7 +9,9 @@ function HomePage() {
 const [graphDimensionsBar, setGraphDimensionsBar] = useState({ width: 2000, height: 400 });
 const [fetchedData, setFetchedData] = useState(null); // State to store fetched data
 
-  // Place Holder for getting Transaction data
+  // Place Holder for getting Transaction 
+  
+  /*
   useEffect(() => {
     const fetchData = async (datatype, start_block, end_block, contract_address) => {
       try {
@@ -40,7 +42,7 @@ const [fetchedData, setFetchedData] = useState(null); // State to store fetched 
   }, []); 
 
 
-
+*/
 
 
 
@@ -51,52 +53,6 @@ const [fetchedData, setFetchedData] = useState(null); // State to store fetched 
       <h1>Home Page</h1>
       <Grid item xs={12} sm={6} md={4}>
  
-          <CardWrapper title="Bar Chart">
-            <BarChartComponent 
-              data={fetchedData} 
-              width={graphDimensionsBar.width} 
-              height={graphDimensionsBar.height}
-            />
-          </CardWrapper>
-          </Grid>
-
-      <Grid container spacing={3}> {/* spacing={3} adds a gap between the grid items */}
-        <Grid item xs={12} sm={6} md={4}>
-          <CardWrapper title="Graph 1">
-            <PlotGraph 
-              apiEndpoint="http://localhost:3001/api/data" 
-              width={graphDimensions.width} 
-              height={graphDimensions.height} 
-            />
-          </CardWrapper>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <CardWrapper title="Graph 2">
-            <PlotGraph 
-              apiEndpoint="http://localhost:5000/api/data" 
-              width={graphDimensions.width} 
-              height={graphDimensions.height} 
-            />
-          </CardWrapper>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <CardWrapper title="Graph 3">
-            <PlotGraph 
-              apiEndpoint="http://localhost:5000/api/data" 
-              width={graphDimensions.width} 
-              height={graphDimensions.height} 
-            />
-          </CardWrapper>
-        </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-          <CardWrapper title="Graph 3">
-            <PlotGraph 
-              apiEndpoint="http://localhost:5000/api/data" 
-              width={graphDimensions.width} 
-              height={graphDimensions.height} 
-            />
-          </CardWrapper>
-        </Grid>
         
       </Grid>
 

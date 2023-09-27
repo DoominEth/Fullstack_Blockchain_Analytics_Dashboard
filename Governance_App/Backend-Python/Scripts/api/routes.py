@@ -4,7 +4,8 @@ from services.data_service import (
     get_data_service, 
     build_smart_contract_service, 
     hash_log_events_service, 
-    parse_log_events_service
+    parse_log_events_service,
+    hash_functions_service
 )
 from utils.helpers.validation import ValidationError 
 
@@ -83,6 +84,25 @@ def parse_log_events_route():
         return jsonify(data=result_data, status="Data parsed successfully")
 
     return jsonify(error="No data parsed"), 404
+
+@api_bp.route('/hash-functions', methods=['POST'])
+def hash_functions():
+    contract_address = request.json.get('contract_address')
+    
+    if not contract_address:
+        return jsonify(error="Contract address is required"), 400
+
+    try:
+        result_data = hash_functions_service(contract_address)
+    except ValidationError as e:
+        return jsonify(error=str(e)), 400
+
+    if result_data is not None:
+        result_data = result_data.to_json(orient="records")
+        return jsonify(data=result_data, status="Data hashed successfully")
+    
+    return jsonify(error="Unable to hash data"), 500
+
 
 
 #request 

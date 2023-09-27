@@ -14,7 +14,7 @@ function Navbar() {
         width: 100,
         flexShrink: 0,
         '& .MuiDrawer-paper': {
-          width: 360,
+          width: 200,
           boxSizing: 'border-box',
         },
       }}
@@ -33,7 +33,6 @@ function Navbar() {
         <ListItem button component={Link} to="/page1" selected={location.pathname === '/page1'}>
           <ListItemText primary="Page 1" />
         </ListItem>
-        {/* Add more links as needed */}
       </List>
     </Drawer>
   );

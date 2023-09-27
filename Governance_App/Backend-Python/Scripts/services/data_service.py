@@ -14,6 +14,7 @@ from utils.algorithms.event_signatures import createSigFromEvents
 from utils.database.eventHashDB import save_event_hash_to_database, get_event_hash_by_contract_address
 from utils.algorithms.parse_event_signatures import parse_event_logs
 from utils.database.parsedEventLogsDB import get_all_parsed_event_logs_by_address, save_parsed_event_logs_to_database
+from utils.database.functionHashDB import save_function_hash_to_database , get_function_hash_by_contract_address
 
 def get_data_service():
     data = get_data_from_db()
@@ -77,8 +78,8 @@ def hash_log_events_service(contract_address):
         events = [item for item in contract_instance.abi if item['type'] == 'event']
         hashed_events = createSigFromEvents(events)
         #Save Data
-        print("HashedEvents" , hashed_events)
-        print("Event Names" , events)
+        #print("HashedEvents" , hashed_events)
+        #print("Event Names" , events)
 
         save_event_hash_to_database(contract_instance.address, events, hashed_events)
         fetchedData = get_event_hash_by_contract_address(contract_address)
@@ -107,6 +108,24 @@ def parse_log_events_service(contract_address, start_block, end_block):
     return parsed_event_logs
 
 
+def hash_functions_service(contract_address):
+    #Validate (add)
+
+    #Check for data existence
+   fetchedData = get_function_hash_by_contract_address(contract_address)
+   if fetchedData.empty:
+        #Create Data
+        contract_instance = Config.contract_helper.createContract(contract_address)
+        functions = [item for item in contract_instance.abi if item['type'] == 'function']
+        hashed_functions = createSigFromEvents(functions)
+        #Save Data
+        print("Hashed Functions" , hashed_functions)
+        print("Function Names" , functions)
+        save_function_hash_to_database(contract_instance.address, functions, hashed_functions)
+        fetchedData = get_function_hash_by_contract_address(contract_address)
+        return fetchedData
+   #Return Data
+   return fetchedData 
 
     
 
