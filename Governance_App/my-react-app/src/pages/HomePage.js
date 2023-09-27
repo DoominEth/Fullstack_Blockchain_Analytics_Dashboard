@@ -50,6 +50,7 @@ const [fetchedData, setFetchedData] = useState(null); // State to store fetched 
       
       <h1>Home Page</h1>
       <Grid item xs={12} sm={6} md={4}>
+ 
           <CardWrapper title="Bar Chart">
             <BarChartComponent 
               data={fetchedData} 
@@ -96,6 +97,7 @@ const [fetchedData, setFetchedData] = useState(null); // State to store fetched 
             />
           </CardWrapper>
         </Grid>
+        
       </Grid>
 
     </div>

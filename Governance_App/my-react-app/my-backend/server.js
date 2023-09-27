@@ -13,8 +13,6 @@ app.use(cors());
 app.use(bodyParser.json());
 
 
-
-
 app.post('/api/build-smart-contract-data', async (req, res) => {
   try {
     const { start_block, end_block, contract_address } = req.body;
@@ -30,6 +28,23 @@ app.post('/api/build-smart-contract-data', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+
+app.post('/api/hash-log-events', async (req, res) => {
+  try {
+    const { contract_address } = req.body;
+    const backendUrl = `http://127.0.0.1:5000/api/hash-log-events`;
+    const response = await axios.post(backendUrl, {
+      contract_address
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 
 
 app.get('/api/blockchain-data', async (req, res) => {

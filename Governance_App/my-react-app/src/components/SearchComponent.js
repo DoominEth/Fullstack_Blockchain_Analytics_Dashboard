@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField } from '@mui/material';
 import BlockComponent from './BlockComponent';
-import { buildSmartContractData } from '../API/initialContractDataAPI';
+import { buildSmartContractData, fetchHashLogEvents } from '../API/initialContractDataAPI';
 
 const SearchComponent = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -9,8 +9,11 @@ const SearchComponent = () => {
   const [endBlock, setEndBlock] = useState('');
 
   const handleSearch = async () => {
-    const data = await buildSmartContractData(startBlock, endBlock, searchTerm); // searchTerm is used as contractAddress
-    console.log(data);
+    const dataLogs = await buildSmartContractData(searchTerm, startBlock, endBlock);
+    const dataHash = await fetchHashLogEvents(searchTerm);
+
+    console.log(dataLogs);
+    console.log(dataHash);
   };
 
   return (
