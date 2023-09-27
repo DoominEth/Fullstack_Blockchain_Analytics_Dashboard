@@ -12,6 +12,8 @@ from utils.helpers.getLogs import  get_blockchain_data_logs
 from utils.config   import Config
 from utils.algorithms.event_signatures import createSigFromEvents
 from utils.database.eventHashDB import save_event_hash_to_database, get_event_hash_by_contract_address
+from utils.algorithms.parse_event_signatures import parse_event_logs
+from utils.database.parsedEventLogsDB import get_all_parsed_event_logs_by_address, save_parsed_event_logs_to_database
 
 def get_data_service():
     data = get_data_from_db()
@@ -40,9 +42,6 @@ def build_smart_contract_service(contract_address, start_block, end_block):
     #Check for data existence
     fetchedData = get_all_logs_by_address(contract_address,start_block,end_block)
 
-    #Testing hash logs
-    hash_logs = hash_log_events_service(contract_address)
-
 
     if fetchedData is None:
         #Create data
@@ -57,10 +56,7 @@ def build_smart_contract_service(contract_address, start_block, end_block):
         #Return Data
         return logdata
 
-
-
-    print("Hash Log Data: ", hash_logs)
-
+    #print("Hash Log Data: ", hash_logs)
     #print(fetchedData)
     #return data
     return fetchedData
@@ -90,6 +86,27 @@ def hash_log_events_service(contract_address):
         return fetchedData
     #Return Data
     return fetchedData
+
+
+def parse_log_events_service(contract_address, start_block, end_block):
+    
+    parsed_event_logs = get_all_parsed_event_logs_by_address(contract_address, start_block,end_block)
+
+    if parsed_event_logs is None:
+        print("THERE IS NO PARSED EVENT LOGS FOR THIS ADDRESS")
+
+        event_logs = build_smart_contract_service(contract_address, start_block,end_block)
+        hash_events = hash_log_events_service(contract_address)
+
+        parsed_event_logs  = parse_event_logs(event_logs, hash_events)
+
+        save_parsed_event_logs_to_database(parsed_event_logs)
+
+        return parsed_event_logs
+
+    return parsed_event_logs
+
+
 
     
 

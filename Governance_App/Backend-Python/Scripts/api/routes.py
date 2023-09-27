@@ -1,6 +1,11 @@
 # api/routes.py
 from flask import Blueprint, jsonify, request
-from services.data_service import get_data_service, build_smart_contract_service, hash_log_events_service
+from services.data_service import (
+    get_data_service, 
+    build_smart_contract_service, 
+    hash_log_events_service, 
+    parse_log_events_service
+)
 from utils.helpers.validation import ValidationError 
 
 
@@ -58,6 +63,27 @@ def hash_log_events():
         return jsonify(data=result_data, status="Data hashed successfully")
     
     return jsonify(error="Unable to hash data"), 500
+
+
+@api_bp.route('/parse-log-events', methods=['POST'])
+def parse_log_events_route():
+    contract_address = request.json.get('contract_address')
+    start_block = request.json.get('start_block')
+    end_block = request.json.get('end_block')
+
+    try:
+        parsed_data = parse_log_events_service(contract_address, start_block, end_block)
+    except ValidationError as e:
+        return jsonify(error=str(e)), 400
+    except Exception as e:
+        return jsonify(error="Unable to parse log data"), 500
+
+    if parsed_data is not None:
+        result_data = parsed_data.to_json(orient="records")
+        return jsonify(data=result_data, status="Data parsed successfully")
+
+    return jsonify(error="No data parsed"), 404
+
 
 #request 
 # @api_bp.route('/api/blockchain-data', methods=['GET'])

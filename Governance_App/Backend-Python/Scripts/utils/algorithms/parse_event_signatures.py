@@ -1,18 +1,4 @@
-from log_event_database import get_all_logs_by_name
-from database_event_signature import get_events_by_contract_address  
 import json
-
-def get_all_log_data(cursor, contract_address):
-    eventKey = get_events_by_contract_address(cursor,contract_address)
-    logsData = get_all_logs_by_name(cursor, contract_address)
-
-    return eventKey, logsData
-
-def build_parsed_data(cursor, contract_address):
-    eventkey, logsData = get_all_log_data(cursor , contract_address)
-    parsedData = update_events(logsData, eventkey)
-    return parsedData
-
 
 def parse_address(data: str) -> str:
     # Assuming the address is in hex format with 0x prefix
@@ -23,7 +9,7 @@ def parse_uint256(data: str) -> int:
     #    data = data[2:]
     return int(data, 16)
 
-def update_events(dataDF, keys):
+def parse_event_logs(dataDF, keys):
     for index, row in dataDF.iterrows():
         print(index)
         topic0 = row["topic0"]  # Assuming topic0 holds the event_signature
