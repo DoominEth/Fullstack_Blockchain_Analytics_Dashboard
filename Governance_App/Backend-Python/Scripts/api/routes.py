@@ -6,7 +6,11 @@ from services.data_service import (
     hash_log_events_service, 
     parse_log_events_service,
     hash_functions_service,
-    contract_references_service
+    build_event_label_service,
+    contract_references_service,
+    get_unique_label_names_service,
+    test_function_service,
+    get_label_info_by_names_service
 )
 from utils.helpers.validation import ValidationError 
 
@@ -18,7 +22,7 @@ print("The API Blueprint: " , api_bp)
 #Test to make sure each part is working
 @api_bp.route('/datatest', methods=['GET'])
 def get_data():
-    print('Trying to get Data')
+    #print('Trying to get Data')
     data = get_data_service()
     return jsonify(data=data)
 
@@ -30,9 +34,9 @@ def build_smart_contract_data():
     start_block = request.json.get('start_block')
     end_block = request.json.get('end_block')
 
-    print(contract_address)
-    print(start_block)
-    print(end_block)
+    #print(contract_address)
+    #print(start_block)
+    #print(end_block)
 
     try:
         result_data = build_smart_contract_service(contract_address, start_block, end_block)
@@ -123,6 +127,59 @@ def contract_references_route():
         return jsonify(data=result_data, status="Data fetched successfully")
     
     return jsonify(error="Unable to fetch data"), 500
+
+
+
+@api_bp.route('/build-event-labels-from-github', methods=['POST'])  
+def build_event_labels_from_github():  
+    searchTerm = request.json.get('searchTerm')
+    labelName = request.json.get('labelName')
+
+    try:
+        result_data = build_event_label_service(searchTerm, labelName)  
+    except ValidationError as e:
+        return jsonify(error=str(e)), 400
+
+    if result_data is not None:
+        result_data = result_data.to_json(orient="records")
+        return jsonify(data=result_data, status="Label data built successfully")
+    return jsonify(error="Unable to build data"), 500
+
+
+
+@api_bp.route('/get-unique-label-names', methods=['GET'])
+def get_unique_label_names_route():
+    label_names = get_unique_label_names_service()
+    return jsonify(label_names=label_names)
+
+
+@api_bp.route('/test-function', methods=['POST'])
+def test_function_route():
+    searchTerm = request.json.get('searchTerm')
+    testdata = test_function_service(searchTerm)
+    return testdata
+    if testdata is not None:
+        testdata = testdata.to_json(orient="records")  
+        return jsonify(data=testdata, status="Data fetched successfully")
+    return jsonify(error="Unable to fetch data"), 500
+
+
+
+@api_bp.route('/get-label-info-by-name', methods=['GET'])
+def get_label_by_name_route():
+    label_name = request.args.get('labelName')
+
+    try:
+        label_info = get_label_info_by_names_service(label_name)
+    except Exception as e:  
+        return jsonify(error=str(e)), 400
+
+    if label_info is not None:
+        label_info = label_info.to_json(orient="records")
+        return jsonify(data=label_info, status="Label info retrieved successfully")
+    
+    return jsonify(error="Unable to retrieve label info"), 500
+
 
 
 #request 

@@ -8,10 +8,15 @@ class web3Contract:
         
     
     def createContract(self, address):
-        print("TYPE web3: ",type(self.web3))
-        print("Type etherscan: ", type(self.etherscan))
+        #print("TYPE web3: ",type(self.web3))
+        #print("Type etherscan: ", type(self.etherscan))
 
-        contractAddress = self.web3.toChecksumAddress(address)
-        abi = self.etherscan.get_contract_abi(address)
-        contractInstance = self.web3.eth.contract(address=contractAddress, abi=abi)
-        return contractInstance
+        try:
+            contractAddress = self.web3.toChecksumAddress(address)
+            abi = self.etherscan.get_contract_abi(address)
+            contractInstance = self.web3.eth.contract(address=contractAddress, abi=abi)
+            return contractInstance
+        except:
+            print("CONTRACT: ", contractAddress)
+            print("ERROR: SMART CONTRACT HAD NO ABI")
+            return None

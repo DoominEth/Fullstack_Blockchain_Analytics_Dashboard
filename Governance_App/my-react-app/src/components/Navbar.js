@@ -30,9 +30,15 @@ function Navbar() {
         <ListItem button component={Link} to="/" selected={location.pathname === '/'}>
           <ListItemText primary="Home" />
         </ListItem>
-        <ListItem button component={Link} to="/page1" selected={location.pathname === '/page1'}>
-          <ListItemText primary="Page 1" />
-        </ListItem>
+<ListItem 
+    button 
+    component={Link} 
+    to="/SettingsPage" 
+    selected={location.pathname === '/SettingsPage'}
+>
+    <ListItemText primary="Settings" />
+</ListItem>
+
       </List>
     </Drawer>
   );

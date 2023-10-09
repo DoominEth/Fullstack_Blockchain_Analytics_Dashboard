@@ -4,10 +4,13 @@ import HomePage from './pages/HomePage';
 import Navbar from './components/Navbar';
 import SearchBar from './components/SearchBarComponent';
 import SearchComponent from './components/SearchComponent';
+import SettingsPage from './pages/SettingsPage';  
 
 function App() {
   return (
+  
     <Router>
+
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
                       <div style={{ alignSelf: 'center', margin: '20px 0', width: '70%' }}>
           {/* <SearchBar /> */}
@@ -19,7 +22,7 @@ function App() {
           <div style={{ flex: 1, paddingLeft: 360 }}> {/* paddingLeft is the width of the sidebar */}
             <Routes>
               <Route path="/" element={<HomePage />} />
-              {/* Add other routes as needed */}
+               <Route path="/SettingsPage" element={<SettingsPage />} /> 
             </Routes>
           </div>
         </div>

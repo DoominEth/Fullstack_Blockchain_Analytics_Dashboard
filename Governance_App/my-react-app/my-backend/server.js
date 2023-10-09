@@ -89,6 +89,65 @@ app.post('/api/contract-references', async (req, res) => {
 });
 
 
+
+app.post('/api/build-event-labels-from-github', async (req, res) => {
+  try {
+    const { searchTerm, labelName } = req.body;
+    const backendUrl = `http://127.0.0.1:5000/api/build-event-labels-from-github`; 
+    const response = await axios.post(backendUrl, {
+      searchTerm,
+      labelName
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/unique-label-names', async (req, res) => {
+  try {
+    const backendUrl = `http://127.0.0.1:5000/api/get-unique-label-names`;
+    const response = await axios.get(backendUrl);
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+app.post('/api/test-function', async (req, res) => {
+    try {
+        const { searchTerm } = req.body;
+        const backendUrl = `http://127.0.0.1:5000/api/test-function`;
+        const response = await axios.post(backendUrl, {
+            searchTerm
+        });
+        res.json(response.data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+app.get('/api/get-label-info-by-name', async (req, res) => {
+  try {
+    const { labelName } = req.query;
+    const backendUrl = `http://127.0.0.1:5000/api/get-label-info-by-name?labelName=${labelName}`;
+    const response = await axios.get(backendUrl);
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+
+
 app.get('/api/blockchain-data', async (req, res) => {
     const tableName = `transactions_${req.query.contract_address.replace(/[^a-z0-9]/gi, '')}`;
     const start_block = parseInt(req.query.start_block); 
