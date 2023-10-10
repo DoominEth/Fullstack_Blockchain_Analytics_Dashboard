@@ -9,7 +9,6 @@ const BlockComponent = ({ label, value, onChange }) => {
         value={value}
         onChange={onChange}
         variant="outlined"
-        fullWidth
         size="small" 
         type="number"
       />

@@ -9,7 +9,10 @@ def setup_event_labels_table(cursor):
         event_and_params TEXT NOT NULL,
         event_signature TEXT NOT NULL,
         github_url TEXT NOT NULL,
-        label_name TEXT NOT NULL,        
+        label_name TEXT NOT NULL,
+        include BOOLEAN NOT NULL DEFAULT True,
+        stop_on_match BOOLEAN NOT NULL DEFAULT False,
+        percentage_match INT DEFAULT 30,
         UNIQUE (github_url, label_name, event_name)
     )
     """)
@@ -74,3 +77,14 @@ def get_unique_label_names():
             records = cursor.fetchall()
     
     return [record[0] for record in records]
+
+def update_event_label(label_name, event_signature, include, stop_on_match, percentage_match):
+    """Update the event label with new parameters."""
+    with get_connection() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute("""
+            UPDATE event_labels 
+            SET include = %s, stop_on_match = %s, percentage_match = %s
+            WHERE label_name = %s AND event_signature = %s
+            """, (include, stop_on_match, percentage_match, label_name, event_signature))
+            conn.commit()

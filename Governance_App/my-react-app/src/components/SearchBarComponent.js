@@ -1,12 +1,11 @@
-// SearchBar.js
 import React from 'react';
 import { Button, TextField, Box } from '@mui/material';
 
 const SearchBar = ({ setSearchTerm, searchTerm }) => {
 
   return (
-    <Box display="flex" width="50%" justifyContent="center" style={{ alignItems: 'center' }}>
-      <Box style={{ margin: '10px', flex: 4 }}>
+    <Box display="flex" width="100%" alignItems="center" px={2}  >
+      <Box flex={1} mr={2}>
         <TextField
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -16,11 +15,9 @@ const SearchBar = ({ setSearchTerm, searchTerm }) => {
           size="small"
         />
       </Box>
-      <Box style={{ margin: '10px' }}>
-        <Button variant="contained" color="primary">
-          Search
-        </Button>
-      </Box>
+      <Button variant="contained" color="primary">
+        Search
+      </Button>
     </Box>
   );
 };

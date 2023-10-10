@@ -145,6 +145,20 @@ app.get('/api/get-label-info-by-name', async (req, res) => {
 });
 
 
+app.post('/api/update-label-data', async (req, res) => {
+
+  console.log("INSIDE THE update label")
+  try {
+    const updatedData = req.body;
+    const backendUrl = `http://127.0.0.1:5000/api/update-label-data`;
+    const response = await axios.post(backendUrl, updatedData);
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 
 

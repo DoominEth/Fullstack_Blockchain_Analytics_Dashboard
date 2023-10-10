@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Grid, Button, Container, Typography, Paper } from '@mui/material';
 import SearchGitHubComponent from '../components/SearchGitHubComponent';
 import { fetchUniqueLabelNames, getLabelInfoByName } from '../API/labelAPI';
+import CardWrapper from '../components/CardWrapper';
+import LabelSettings from '../components/LabelInfoComponent';
+
 
 function SettingsPage() {
   const [labels, setLabels] = useState([]);
   const [labelInfo, setLabelInfo] = useState(null);
+  const [selectedLabelName, setSelectedLabelName] = useState('');
 
   useEffect(() => {
     async function fetchData() {
@@ -18,17 +22,20 @@ function SettingsPage() {
   const handleButtonClick = async (labelName) => {
     const info = await getLabelInfoByName(labelName);
     setLabelInfo(JSON.parse(info.data));
+    setSelectedLabelName(labelName);
   };
 
   return (
-    <div>
-      <h1>Settings Page</h1>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6} md={4}>
+    <Container maxWidth={true} style={{ background: '#f5f5f5', padding: '20px', borderRadius: '15px' }}>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <CardWrapper >
           <h2>Create New Label</h2>
           <SearchGitHubComponent />
+          </CardWrapper>
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={6} >
+          <CardWrapper>
           {labels.map((label, index) => (
             <Button
               key={index}
@@ -39,18 +46,15 @@ function SettingsPage() {
               {label}
             </Button>
           ))}
+          </CardWrapper>
+        </Grid>
+        <Grid item xs={6} >
+        <CardWrapper>
+ {labelInfo && <LabelSettings info={labelInfo} selectedLabelName={selectedLabelName} />}
+        </CardWrapper>
         </Grid>
       </Grid>
-      <Container maxWidth="md">
-        {labelInfo && labelInfo.map((info, index) => (
-          <Paper key={index} elevation={3} sx={{ margin: '10px', padding: '10px' }}>
-            <Typography variant="body1">Event Name: {info.event_name}</Typography>
-            <Typography variant="body1">Event and Params: {info.event_and_params}</Typography>
-            <Typography variant="body1">Event Signature: {info.event_signature}</Typography>
-          </Paper>
-        ))}
-      </Container>
-    </div>
+    </Container>
   );
 }
 

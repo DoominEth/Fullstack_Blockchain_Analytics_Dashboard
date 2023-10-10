@@ -1,34 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import Navbar from './components/Navbar';
-import SearchBar from './components/SearchBarComponent';
 import SearchComponent from './components/SearchComponent';
-import SettingsPage from './pages/SettingsPage';  
+import SettingsPage from './pages/SettingsPage';
+import { Box, Container } from '@mui/material';
 
 function App() {
+  const [searchData, setSearchData] = useState({
+    graphData1: null,
+    graphData2: null,
+  });
+
   return (
-  
     <Router>
-
-      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-                      <div style={{ alignSelf: 'center', margin: '20px 0', width: '70%' }}>
-          {/* <SearchBar /> */}
-          <SearchComponent/>
-        </div>
-        <div style={{ display: 'flex', flexGrow: 1 }}>
+      <Box display="flex" flexDirection="column" minHeight="100vh">
+        <Box display="flex" flexGrow={1}>
           <Navbar />
-
-          <div style={{ flex: 1, paddingLeft: 360 }}> {/* paddingLeft is the width of the sidebar */}
+           <Box flex={1} >
+          <Box >
+          <SearchComponent onSearch={setSearchData} />
+          </Box>
             <Routes>
-              <Route path="/" element={<HomePage />} />
-               <Route path="/SettingsPage" element={<SettingsPage />} /> 
+              <Route path="/" element={<HomePage data={searchData} />} />
+              <Route path="/SettingsPage" element={<SettingsPage />} />
             </Routes>
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
     </Router>
   );
 }
+
 
 export default App;

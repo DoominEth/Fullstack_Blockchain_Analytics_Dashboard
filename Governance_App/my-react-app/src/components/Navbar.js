@@ -1,7 +1,7 @@
 import React from 'react';
 import { Drawer, List, ListItem, ListItemText, Divider, Typography, Box } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
-import DashboardIcon from '@mui/icons-material/Dashboard'; // Temporary icon
+import DashboardIcon from '@mui/icons-material/Dashboard'; 
 
 function Navbar() {
   const location = useLocation();
@@ -11,10 +11,10 @@ function Navbar() {
       variant="permanent"
       anchor="left"
       sx={{
-        width: 100,
+        width: 250, 
         flexShrink: 0,
         '& .MuiDrawer-paper': {
-          width: 200,
+          width: 250, 
           boxSizing: 'border-box',
         },
       }}
@@ -23,22 +23,21 @@ function Navbar() {
         <Typography variant="h6" noWrap component="div">
           Data Analytics
         </Typography>
-        <DashboardIcon /> {/* Temporary icon */}
+        <DashboardIcon /> 
       </Box>
       <Divider />
       <List>
         <ListItem button component={Link} to="/" selected={location.pathname === '/'}>
           <ListItemText primary="Home" />
         </ListItem>
-<ListItem 
-    button 
-    component={Link} 
-    to="/SettingsPage" 
-    selected={location.pathname === '/SettingsPage'}
->
-    <ListItemText primary="Settings" />
-</ListItem>
-
+        <ListItem 
+            button 
+            component={Link} 
+            to="/SettingsPage" 
+            selected={location.pathname === '/SettingsPage'}
+        >
+            <ListItemText primary="Settings" />
+        </ListItem>
       </List>
     </Drawer>
   );

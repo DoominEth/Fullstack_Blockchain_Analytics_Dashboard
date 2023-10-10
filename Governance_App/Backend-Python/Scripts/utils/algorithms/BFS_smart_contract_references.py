@@ -26,18 +26,18 @@ def bfs_contract_reference(contract_address, max_depth):
 
         
         # Label the contract
-        label = smart_contract_labeler(current_address)
-        print("Finished Label")
+        label, stop = smart_contract_labeler(current_address)
 
-        # Find children
-        try:
-            currentContract = contract_helper.createContract(current_address)
-          
-            children = detect_smart_contract_references(currentContract) #TO DO: Move this contract creation
-        except:
-            print("Could not create the smart contract")
-            children = []
-        #children = find_children(current_address)
+        children = []
+        if not stop:
+            # Find children
+            try:
+                currentContract = contract_helper.createContract(current_address)
+            
+                children = detect_smart_contract_references(currentContract) #TO DO: Move this contract creation
+            except:
+                print("Could not create the smart contract")
+            #children = find_children(current_address)
         
         # Save to database or some other data structure
         network_data.append({
@@ -45,6 +45,9 @@ def bfs_contract_reference(contract_address, max_depth):
             'label': label,
             'reference_contracts': children
         })
+
+        if stop:
+            continue
 
         print("Finished Data append")        
 

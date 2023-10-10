@@ -18,7 +18,7 @@ from utils.database.functionHashDB import save_function_hash_to_database , get_f
 from utils.algorithms.smart_contract_references import detect_smart_contract_references
 from utils.database.smartContractReferenceDB import save_contract_references_to_database, get_contract_references_by_contract_address
 from utils.algorithms.create_events_github import extract_events_github
-from utils.database.eventLabelDB import save_event_labels_to_database, get_all_event_labels_by_label_name, get_unique_label_names
+from utils.database.eventLabelDB import save_event_labels_to_database, get_all_event_labels_by_label_name, get_unique_label_names, update_event_label
 from utils.algorithms.BFS_smart_contract_references import bfs_contract_reference
 
 from utils.helpers.service_helpers import hash_log_events
@@ -186,6 +186,7 @@ def build_event_label_service(githubURL, label):
 
     return labelData
 
+
 def get_unique_label_names_service():
     labelNames = get_unique_label_names()
 
@@ -202,3 +203,13 @@ def test_function_service(smartContractAddress):
 def get_label_info_by_names_service(labelName):
     labelInfo = get_all_event_labels_by_label_name(labelName)
     return labelInfo
+
+def update_label_data_service(data):
+    label_name = data['labelName']
+    percentage_match = data['percentage_match']
+    stop_on_match = data['stop_on_match']
+
+    for label in data['labels']:
+        event_signature = label['event_signature']
+        include = label['include']
+        update_event_label(label_name, event_signature, include, stop_on_match, percentage_match)

@@ -10,7 +10,8 @@ from services.data_service import (
     contract_references_service,
     get_unique_label_names_service,
     test_function_service,
-    get_label_info_by_names_service
+    get_label_info_by_names_service,
+    update_label_data_service
 )
 from utils.helpers.validation import ValidationError 
 
@@ -181,6 +182,16 @@ def get_label_by_name_route():
     return jsonify(error="Unable to retrieve label info"), 500
 
 
+@api_bp.route('/update-label-data', methods=['POST'])
+def update_label_data_route():
+    data = request.json
+
+    try:
+        result = update_label_data_service(data)
+        return jsonify(status=result)
+    except Exception as e:
+        return jsonify(error=str(e)), 400
+    
 
 #request 
 # @api_bp.route('/api/blockchain-data', methods=['GET'])
