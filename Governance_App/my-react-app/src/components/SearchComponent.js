@@ -37,9 +37,10 @@ const SearchComponent = ({ onSearch }) => {
   };
 
 return (
-    <Container maxWidth="md">
+    <Container>
+    <Box maxWidth="50%" mx="auto">
       <Box display="flex" alignItems="center" >
-        <Box m={1} flex={4}>
+        <Box flex={4}>
           <TextField
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -59,13 +60,14 @@ return (
           value={endBlock}
           onChange={(e) => setEndBlock(e.target.value)}
         />
-        <Box m={1}>
+        <Box >
           <Button onClick={handleSearch} variant="contained" color="primary">
             Search
           </Button>
         </Box>
         <Box>
         </Box>
+      </Box>
       </Box>
     </Container>
   );

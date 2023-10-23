@@ -1,40 +1,72 @@
-import React from 'react';
-import PlotGraph from '../components/graphs/PlotGraph';
+import React, { useState, useEffect } from 'react';
 import CardWrapper from '../components/CardWrapper';
-import { Grid, Container } from '@mui/material';
-import BarChartComponent from '../components/graphs/barGraph.js';
-import NetworkGraph from '../components/NetworkComponent';
-//import NetworkGraph from '../components/NetworkGraphComponent';
+import { Grid, Container, Box } from '@mui/material';
+import NG from '../components/NGComponent';
+import NodeComponent from '../components/NodeComponent'
+import SmartContractTab from './SmartContractTab'
 
+
+
+//Node data
+const transformData = (data) => {
+  const nodes = [];
+  const links = [];
+
+  data.forEach(contract => {
+    if (contract.contract_address) {
+      nodes.push({ id: contract.contract_address , label: contract.label });
+
+      contract.reference_contracts.forEach(reference => {
+        links.push({
+          source: contract.contract_address,
+          target: reference.address,
+          name: reference.name,
+          value: 1 
+        });
+      });
+    }
+  });
+
+  return { nodes, links };
+};
 
 function HomePage({ data }) {
   const { graphData1, graphData2 } = data || {};
+  const isDataAvailable = data && graphData1 && graphData2;
+  const [selectedNode, setSelectedNode] = useState(null);
 
-  if (!data) {
-    return <div>Loading data...</div>;
+
+    useEffect(() => {
+        console.log('Selected Node:', selectedNode);
+    }, [selectedNode]);
+
+  if (!isDataAvailable) {
+    return 0
   }
 
+  const transformedData = transformData(graphData1);
+
   return (
-    <Container maxWidth={true} style={{ background: '#f5f5f5', padding: '20px', borderRadius: '15px' }}>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
+  <Container fixed style={{  display: 'flex'}}>
+       <Grid container spacing={3} alignItems="stretch">
+        <Grid item xs={9}>
           <CardWrapper title="Network Diagram">
-            <NetworkGraph data={graphData1} />
+            <NG nodes={transformedData.nodes} links={transformedData.links} onNodeClick={setSelectedNode}/>
           </CardWrapper>
         </Grid>
-        <Grid item xs={6}>
-          <CardWrapper title="Network Diagram">
-            <NetworkGraph data={graphData1} />
+          <Grid item xs={3}>
+            <CardWrapper title="Information">
+            <SmartContractTab contractData={selectedNode ? { id: selectedNode } : {}} />
           </CardWrapper>
         </Grid>
-        <Grid item xs={6}>
-          <CardWrapper title="Network Diagram">
-            <NetworkGraph data={graphData1} />
-          </CardWrapper>
-        </Grid>
+        <Grid item xs={9}>
+    </Grid>
+
+        
       </Grid>
     </Container>
   );
 }
+
 
 export default HomePage;

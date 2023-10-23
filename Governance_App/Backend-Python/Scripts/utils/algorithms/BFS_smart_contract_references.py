@@ -28,6 +28,9 @@ def bfs_contract_reference(contract_address, max_depth):
         # Label the contract
         label, stop = smart_contract_labeler(current_address)
 
+        if max_depth == current_depth:
+            stop = True
+
         children = []
         if not stop:
             # Find children

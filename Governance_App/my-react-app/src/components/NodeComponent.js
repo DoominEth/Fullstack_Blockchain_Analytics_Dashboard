@@ -1,16 +1,22 @@
+import React, { useRef, useEffect } from 'react';
+import * as d3 from 'd3';
 
-import React from 'react';
-import LabelComponent from './LabelComponent';
+function NodeComponent({ nodeData, simulation }) {
+  const displayAddress = nodeData.contract_address 
+    ? nodeData.contract_address.substring(0, 7)
+    : 'Unknown';
 
-const NodeComponent = ({ data }) => {
   return (
-    <div style={{ border: '1px solid black', padding: '10px', margin: '5px' }}>
-      {data.contract_address}
-      {data.label && data.label.map((l, index) => (
-        <LabelComponent key={index} label={l} />
-      ))}
-    </div>
+    <>
+      <circle r={5} fill="#69b3a2" />
+      <title>{nodeData.contract_address || 'Unknown'}</title>
+      <text dy="0.35em" fontSize="2px" fill="white" textAnchor="middle">
+        {displayAddress}...
+        {nodeData.label && nodeData.label[0] ? `(${nodeData.label[0]})` : ''}
+      </text>
+    </>
   );
-};
+}
 
-export default NodeComponent;
+
+export default NodeComponent

@@ -10,14 +10,7 @@ function Navbar() {
     <Drawer
       variant="permanent"
       anchor="left"
-      sx={{
-        width: 250, 
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: 250, 
-          boxSizing: 'border-box',
-        },
-      }}
+
     >
       <Box sx={{ display: 'flex', alignItems: 'center', padding: '8px', justifyContent: 'space-between' }}>
         <Typography variant="h6" noWrap component="div">

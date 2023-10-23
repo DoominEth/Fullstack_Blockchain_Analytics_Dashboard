@@ -26,7 +26,7 @@ function SettingsPage() {
   };
 
   return (
-    <Container maxWidth={true} style={{ background: '#f5f5f5', padding: '20px', borderRadius: '15px' }}>
+    <Container style={{ background: '#f5f5f5', padding: '20px', borderRadius: '15px' }}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <CardWrapper >
@@ -34,8 +34,9 @@ function SettingsPage() {
           <SearchGitHubComponent />
           </CardWrapper>
         </Grid>
-        <Grid item xs={6} >
+        <Grid item xs={12} >
           <CardWrapper>
+          <h2>Labels</h2>
           {labels.map((label, index) => (
             <Button
               key={index}
@@ -48,9 +49,10 @@ function SettingsPage() {
           ))}
           </CardWrapper>
         </Grid>
-        <Grid item xs={6} >
+        <Grid item xs={12} >
         <CardWrapper>
- {labelInfo && <LabelSettings info={labelInfo} selectedLabelName={selectedLabelName} />}
+        <h2>Label Settings</h2>
+  {labelInfo && <LabelSettings info={labelInfo} selectedLabelName={selectedLabelName} />}
         </CardWrapper>
         </Grid>
       </Grid>
