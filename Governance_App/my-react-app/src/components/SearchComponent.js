@@ -8,6 +8,8 @@ import { buildSmartContractData,
   fetchContractReferences, 
   fetchTestData } from '../API/initialContractDataAPI';
 
+  import {getSignatureByKeyword} from '../API/labelAPI'
+
 const SearchComponent = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [startBlock, setStartBlock] = useState('');
@@ -20,6 +22,12 @@ const SearchComponent = ({ onSearch }) => {
     const dataFuncHash = await fetchHashFunctions(searchTerm);
     const dataContractReferences = await fetchContractReferences(searchTerm);
     const testData = await fetchTestData(searchTerm);
+
+    const keyword = "Vote";
+    const signatureData = await getSignatureByKeyword(keyword);
+    console.log(signatureData);
+
+
 
     console.log(dataLogs);
     console.log(dataHash);

@@ -11,10 +11,11 @@ from services.data_service import (
     get_unique_label_names_service,
     test_function_service,
     get_label_info_by_names_service,
-    update_label_data_service
+    update_label_data_service,
+    etherface_service
 )
 from utils.helpers.validation import ValidationError 
-
+from utils.config import Web3
 
 api_bp = Blueprint('api', __name__)
 
@@ -35,6 +36,7 @@ def build_smart_contract_data():
     start_block = request.json.get('start_block')
     end_block = request.json.get('end_block')
 
+    contract_address= Web3.toChecksumAddress(contract_address)
     #print(contract_address)
     #print(start_block)
     #print(end_block)
@@ -56,6 +58,7 @@ def build_smart_contract_data():
 @api_bp.route('/hash-log-events', methods=['POST'])
 def hash_log_events():
     contract_address = request.json.get('contract_address')
+    contract_address= Web3.toChecksumAddress(contract_address)
     
     if not contract_address:
         return jsonify(error="Contract address is required"), 400
@@ -78,6 +81,8 @@ def parse_log_events_route():
     start_block = request.json.get('start_block')
     end_block = request.json.get('end_block')
 
+    contract_address= Web3.toChecksumAddress(contract_address)
+
     try:
         parsed_data = parse_log_events_service(contract_address, start_block, end_block)
     except ValidationError as e:
@@ -94,7 +99,8 @@ def parse_log_events_route():
 @api_bp.route('/hash-functions', methods=['POST'])
 def hash_functions():
     contract_address = request.json.get('contract_address')
-    
+    contract_address= Web3.toChecksumAddress(contract_address)
+
     if not contract_address:
         return jsonify(error="Contract address is required"), 400
 
@@ -112,7 +118,7 @@ def hash_functions():
 @api_bp.route('/contract-references', methods=['POST'])
 def contract_references_route():
     contract_address = request.json.get('contract_address')
-    
+    contract_address= Web3.toChecksumAddress(contract_address)
     if not contract_address:
         return jsonify(error="Contract address is required"), 400
 
@@ -136,6 +142,8 @@ def build_event_labels_from_github():
     searchTerm = request.json.get('searchTerm')
     labelName = request.json.get('labelName')
 
+    searchTerm= Web3.toChecksumAddress(searchTerm)
+
     try:
         result_data = build_event_label_service(searchTerm, labelName)  
     except ValidationError as e:
@@ -157,6 +165,9 @@ def get_unique_label_names_route():
 @api_bp.route('/test-function', methods=['POST'])
 def test_function_route():
     searchTerm = request.json.get('searchTerm')
+
+    searchTerm= Web3.toChecksumAddress(searchTerm)
+
     testdata = test_function_service(searchTerm)
     return testdata
     if testdata is not None:
@@ -192,6 +203,25 @@ def update_label_data_route():
     except Exception as e:
         return jsonify(error=str(e)), 400
     
+
+@api_bp.route('/get-signature-by-keyword', methods=['GET'])
+def get_signature_by_keyword_route():
+    print("Inside Get Sig!!!")
+    keyword = request.args.get('keyword')
+
+    print("ROUTE KEYWORD: ", keyword)
+    try:
+        signature_info = etherface_service(keyword)
+    except Exception as e:
+        return jsonify(error=str(e)), 400
+
+    if signature_info is not None:
+        signature_info = signature_info.to_json(orient="records")
+        return jsonify(data=signature_info, status="Signature info retrieved successfully")
+
+    return jsonify(error="Unable to retrieve signature info"), 500
+
+
 
 #request 
 # @api_bp.route('/api/blockchain-data', methods=['GET'])

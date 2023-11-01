@@ -1,0 +1,729 @@
+[
+    {
+        "contract_address": "0x62B9c7356A2Dc64a1969e19C23e4f579F9810Aa7",
+        "label": [
+            "ERC20"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0x8014595F2AB54cD7c604B00E9fb932176fDc86Ae",
+                "name": "operator"
+            }
+        ]
+    },
+    {
+        "contract_address": "0x8014595F2AB54cD7c604B00E9fb932176fDc86Ae",
+        "label": [],
+        "reference_contracts": [
+            {
+                "address": "0xD533a949740bb3306d119CC777fa900bA034cd52",
+                "name": "crv"
+            },
+            {
+                "address": "0x5f3b5DfEb7B28CDbD7FAba78963EE202a494e2A2",
+                "name": "escrow"
+            },
+            {
+                "address": "0x947B7742C403f20e5FaCcDAc5E092C943E7D0277",
+                "name": "feeManager"
+            },
+            {
+                "address": "0x62B9c7356A2Dc64a1969e19C23e4f579F9810Aa7",
+                "name": "minter"
+            },
+            {
+                "address": "0x989AEb4d175e16225E39E87d0D97A3360524AD80",
+                "name": "staker"
+            }
+        ]
+    },
+    {
+        "contract_address": "0xD533a949740bb3306d119CC777fa900bA034cd52",
+        "label": [
+            "ERC20"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0xd061D61a4d941c39E5453435B6345Dc261C2fcE0",
+                "name": "minter"
+            },
+            {
+                "address": "0x40907540d8a6C65c637785e8f8B742ae6b0b9968",
+                "name": "admin"
+            }
+        ]
+    },
+    {
+        "contract_address": "0x5f3b5DfEb7B28CDbD7FAba78963EE202a494e2A2",
+        "label": [
+            "veToken"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0xD533a949740bb3306d119CC777fa900bA034cd52",
+                "name": "token"
+            },
+            {
+                "address": "0xc4AD0Ef33A0A4ddA3461c479ccb6c36d1e4B7Be4",
+                "name": "controller"
+            },
+            {
+                "address": "0xca719728Ef172d0961768581fdF35CB116e0B7a4",
+                "name": "future_smart_wallet_checker"
+            },
+            {
+                "address": "0xca719728Ef172d0961768581fdF35CB116e0B7a4",
+                "name": "smart_wallet_checker"
+            },
+            {
+                "address": "0x40907540d8a6C65c637785e8f8B742ae6b0b9968",
+                "name": "admin"
+            },
+            {
+                "address": "0x40907540d8a6C65c637785e8f8B742ae6b0b9968",
+                "name": "future_admin"
+            }
+        ]
+    },
+    {
+        "contract_address": "0x947B7742C403f20e5FaCcDAc5E092C943E7D0277",
+        "label": [
+            "EOA"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x989AEb4d175e16225E39E87d0D97A3360524AD80",
+        "label": [],
+        "reference_contracts": [
+            {
+                "address": "0xD533a949740bb3306d119CC777fa900bA034cd52",
+                "name": "crv"
+            },
+            {
+                "address": "0x8014595F2AB54cD7c604B00E9fb932176fDc86Ae",
+                "name": "depositor"
+            },
+            {
+                "address": "0x5f3b5DfEb7B28CDbD7FAba78963EE202a494e2A2",
+                "name": "escrow"
+            },
+            {
+                "address": "0x2F50D538606Fa9EDD2B11E2446BEb18C9D5846bB",
+                "name": "gaugeController"
+            },
+            {
+                "address": "0xd061D61a4d941c39E5453435B6345Dc261C2fcE0",
+                "name": "mintr"
+            },
+            {
+                "address": "0xF403C135812408BFbE8713b5A23a04b3D48AAE31",
+                "name": "operator"
+            },
+            {
+                "address": "0x2B83552729067D1c32A2a31024776BD83c48816e",
+                "name": "owner"
+            }
+        ]
+    },
+    {
+        "contract_address": "0xd061D61a4d941c39E5453435B6345Dc261C2fcE0",
+        "label": [],
+        "reference_contracts": [
+            {
+                "address": "0xD533a949740bb3306d119CC777fa900bA034cd52",
+                "name": "token"
+            },
+            {
+                "address": "0x2F50D538606Fa9EDD2B11E2446BEb18C9D5846bB",
+                "name": "controller"
+            }
+        ]
+    },
+    {
+        "contract_address": "0x40907540d8a6C65c637785e8f8B742ae6b0b9968",
+        "label": [
+            "EIP-897 DelegateProxy"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0x3A93C17FC82CC33420d1809dDA9Fb715cc89dd37",
+                "name": "Implementation"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "getRecoveryVault"
+            },
+            {
+                "address": "0x1b13e8E7b85b2F92CA4436F98F88CE169f63D567",
+                "name": "getEVMScriptRegistry"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "designatedSigner"
+            },
+            {
+                "address": "0xad06868167BC5Ac5cFcbEf2CAFa82bc76961D72d",
+                "name": "kernel"
+            }
+        ]
+    },
+    {
+        "contract_address": "0xc4AD0Ef33A0A4ddA3461c479ccb6c36d1e4B7Be4",
+        "label": [
+            "EOA"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0xca719728Ef172d0961768581fdF35CB116e0B7a4",
+        "label": [],
+        "reference_contracts": [
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "checker"
+            },
+            {
+                "address": "0x40907540d8a6C65c637785e8f8B742ae6b0b9968",
+                "name": "dao"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "future_checker"
+            }
+        ]
+    },
+    {
+        "contract_address": "0x2F50D538606Fa9EDD2B11E2446BEb18C9D5846bB",
+        "label": [
+            "PotentialVote",
+            "GaugeController"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0x40907540d8a6C65c637785e8f8B742ae6b0b9968",
+                "name": "admin"
+            },
+            {
+                "address": "0x40907540d8a6C65c637785e8f8B742ae6b0b9968",
+                "name": "future_admin"
+            },
+            {
+                "address": "0xD533a949740bb3306d119CC777fa900bA034cd52",
+                "name": "token"
+            },
+            {
+                "address": "0x5f3b5DfEb7B28CDbD7FAba78963EE202a494e2A2",
+                "name": "voting_escrow"
+            }
+        ]
+    },
+    {
+        "contract_address": "0xF403C135812408BFbE8713b5A23a04b3D48AAE31",
+        "label": [],
+        "reference_contracts": [
+            {
+                "address": "0xD533a949740bb3306d119CC777fa900bA034cd52",
+                "name": "crv"
+            },
+            {
+                "address": "0xA464e6DCda8AC41e03616F95f4BC98a13b8922Dc",
+                "name": "feeDistro"
+            },
+            {
+                "address": "0xa3C5A1e09150B75ff251c1a7815A07182c3de2FB",
+                "name": "feeManager"
+            },
+            {
+                "address": "0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490",
+                "name": "feeToken"
+            },
+            {
+                "address": "0x7091dbb7fcbA54569eF1387Ac89Eb2a5C9F6d2EA",
+                "name": "lockFees"
+            },
+            {
+                "address": "0x3Fe65692bfCD0e6CF84cB1E7d24108E434A7587e",
+                "name": "lockRewards"
+            },
+            {
+                "address": "0x4e3FBD56CD56c3e72c1403e103b45Db9da5B9D2B",
+                "name": "minter"
+            },
+            {
+                "address": "0x3cE6408F923326f81A7D7929952947748180f1E6",
+                "name": "owner"
+            },
+            {
+                "address": "0x5F47010F230cE1568BeA53a06eBAF528D05c5c1B",
+                "name": "poolManager"
+            },
+            {
+                "address": "0x0000000022D53366457F9d5E68Ec105046FC4383",
+                "name": "registry"
+            },
+            {
+                "address": "0x25E12482a25CF36EC70fDA2A09C1ED077Fc21616",
+                "name": "rewardArbitrator"
+            },
+            {
+                "address": "0xEdCCB35798fae4925718A43cc608aE136208aa8D",
+                "name": "rewardFactory"
+            },
+            {
+                "address": "0x989AEb4d175e16225E39E87d0D97A3360524AD80",
+                "name": "staker"
+            },
+            {
+                "address": "0xCF50b810E57Ac33B91dCF525C6ddd9881B139332",
+                "name": "stakerRewards"
+            },
+            {
+                "address": "0x884da067B66677e72530df91eabb6e3CE69c2bE4",
+                "name": "stashFactory"
+            },
+            {
+                "address": "0x3c995e43E6ddD551E226F4c5544C77BfeD147aB9",
+                "name": "tokenFactory"
+            },
+            {
+                "address": "0x1389388d01708118b497f59521f6943Be2541bb7",
+                "name": "treasury"
+            },
+            {
+                "address": "0x5349ffba494aC3c888ffa16fD438F44B8c67fB07",
+                "name": "voteDelegate"
+            },
+            {
+                "address": "0xE478de485ad2fe566d49342Cbd03E49ed7DB3356",
+                "name": "voteOwnership"
+            },
+            {
+                "address": "0xBCfF8B0b9419b9A88c44546519b1e909cF330399",
+                "name": "voteParameter"
+            }
+        ]
+    },
+    {
+        "contract_address": "0x2B83552729067D1c32A2a31024776BD83c48816e",
+        "label": [],
+        "reference_contracts": [
+            {
+                "address": "0xD364E384aa788C16a99DA7157a6BC0dE1CBfC71e",
+                "name": "boosterPlaceholder"
+            },
+            {
+                "address": "0xa3C5A1e09150B75ff251c1a7815A07182c3de2FB",
+                "name": "owner"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "pendingowner"
+            },
+            {
+                "address": "0x989AEb4d175e16225E39E87d0D97A3360524AD80",
+                "name": "voterproxy"
+            }
+        ]
+    },
+    {
+        "contract_address": "0x3A93C17FC82CC33420d1809dDA9Fb715cc89dd37",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x0000000000000000000000000000000000000000",
+        "label": [
+            "Burn"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x1b13e8E7b85b2F92CA4436F98F88CE169f63D567",
+        "label": [
+            "EIP-897 DelegateProxy"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0xBF1Ce0Bc4EdaAD8e576b3b55e19c4C15Cf6999eb",
+                "name": "Implementation"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "getRecoveryVault"
+            },
+            {
+                "address": "0x1b13e8E7b85b2F92CA4436F98F88CE169f63D567",
+                "name": "getEVMScriptRegistry"
+            },
+            {
+                "address": "0xad06868167BC5Ac5cFcbEf2CAFa82bc76961D72d",
+                "name": "kernel"
+            }
+        ]
+    },
+    {
+        "contract_address": "0xad06868167BC5Ac5cFcbEf2CAFa82bc76961D72d",
+        "label": [
+            "EIP-897 DelegateProxy"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0x2b33CF282f867A7FF693A66e11B0FcC5552e4425",
+                "name": "Implementation"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "getRecoveryVault"
+            },
+            {
+                "address": "0xBd0697BA421e7fEc529E3E76D9e9F3a710490369",
+                "name": "acl"
+            }
+        ]
+    },
+    {
+        "contract_address": "0xA464e6DCda8AC41e03616F95f4BC98a13b8922Dc",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0xa3C5A1e09150B75ff251c1a7815A07182c3de2FB",
+        "label": [
+            "GnosisSafeProxy"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+                "name": "Implementation"
+            },
+            {
+                "address": "0x49e5097f627e400F2a377D5FD7E712d1E0e16FC2",
+                "name": "getOwners"
+            },
+            {
+                "address": "0x17e06ce6914E3969f7BD37D8b2a563890cA1c96e",
+                "name": "getOwners"
+            },
+            {
+                "address": "0xAdE9e51C9E23d64E538A7A38656B78aB6Bcc349e",
+                "name": "getOwners"
+            },
+            {
+                "address": "0xAAc0aa431c237C2C0B5f041c8e59B3f1a43aC78F",
+                "name": "getOwners"
+            },
+            {
+                "address": "0x7904Ad7c992CDAb500dAa0f3366301b1f5365B62",
+                "name": "getOwners"
+            }
+        ]
+    },
+    {
+        "contract_address": "0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490",
+        "label": [
+            [
+                "ERC20"
+            ],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x7091dbb7fcbA54569eF1387Ac89Eb2a5C9F6d2EA",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x3Fe65692bfCD0e6CF84cB1E7d24108E434A7587e",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x4e3FBD56CD56c3e72c1403e103b45Db9da5B9D2B",
+        "label": [
+            [
+                "ERC20"
+            ],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x3cE6408F923326f81A7D7929952947748180f1E6",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x5F47010F230cE1568BeA53a06eBAF528D05c5c1B",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x0000000022D53366457F9d5E68Ec105046FC4383",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x25E12482a25CF36EC70fDA2A09C1ED077Fc21616",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0xEdCCB35798fae4925718A43cc608aE136208aa8D",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0xCF50b810E57Ac33B91dCF525C6ddd9881B139332",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x884da067B66677e72530df91eabb6e3CE69c2bE4",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x3c995e43E6ddD551E226F4c5544C77BfeD147aB9",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x1389388d01708118b497f59521f6943Be2541bb7",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x5349ffba494aC3c888ffa16fD438F44B8c67fB07",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0xE478de485ad2fe566d49342Cbd03E49ed7DB3356",
+        "label": [
+            "EIP-897 DelegateProxy"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0xa4D1a2693589840BABb7f3A44D14Fdf41b3bF1Fe",
+                "name": "Implementation"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "getRecoveryVault"
+            },
+            {
+                "address": "0x1b13e8E7b85b2F92CA4436F98F88CE169f63D567",
+                "name": "getEVMScriptRegistry"
+            },
+            {
+                "address": "0xad06868167BC5Ac5cFcbEf2CAFa82bc76961D72d",
+                "name": "kernel"
+            },
+            {
+                "address": "0x5f3b5DfEb7B28CDbD7FAba78963EE202a494e2A2",
+                "name": "token"
+            }
+        ]
+    },
+    {
+        "contract_address": "0xBCfF8B0b9419b9A88c44546519b1e909cF330399",
+        "label": [
+            "EIP-897 DelegateProxy"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0xa4D1a2693589840BABb7f3A44D14Fdf41b3bF1Fe",
+                "name": "Implementation"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "getRecoveryVault"
+            },
+            {
+                "address": "0x1b13e8E7b85b2F92CA4436F98F88CE169f63D567",
+                "name": "getEVMScriptRegistry"
+            },
+            {
+                "address": "0xad06868167BC5Ac5cFcbEf2CAFa82bc76961D72d",
+                "name": "kernel"
+            },
+            {
+                "address": "0x5f3b5DfEb7B28CDbD7FAba78963EE202a494e2A2",
+                "name": "token"
+            }
+        ]
+    },
+    {
+        "contract_address": "0xD364E384aa788C16a99DA7157a6BC0dE1CBfC71e",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0xBF1Ce0Bc4EdaAD8e576b3b55e19c4C15Cf6999eb",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x2b33CF282f867A7FF693A66e11B0FcC5552e4425",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0xBd0697BA421e7fEc529E3E76D9e9F3a710490369",
+        "label": [
+            "EIP-897 DelegateProxy"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0x81F7564e413586f1f99fDe55740Ac52b43cA99c9",
+                "name": "Implementation"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "getRecoveryVault"
+            },
+            {
+                "address": "0x1b13e8E7b85b2F92CA4436F98F88CE169f63D567",
+                "name": "getEVMScriptRegistry"
+            },
+            {
+                "address": "0xFFfFfFffFFfffFFfFFfFFFFFffFFFffffFfFFFfF",
+                "name": "ANY_ENTITY"
+            },
+            {
+                "address": "0xad06868167BC5Ac5cFcbEf2CAFa82bc76961D72d",
+                "name": "kernel"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000001",
+                "name": "BURN_ENTITY"
+            }
+        ]
+    },
+    {
+        "contract_address": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x49e5097f627e400F2a377D5FD7E712d1E0e16FC2",
+        "label": [
+            "EOA"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x17e06ce6914E3969f7BD37D8b2a563890cA1c96e",
+        "label": [
+            "EOA"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0xAdE9e51C9E23d64E538A7A38656B78aB6Bcc349e",
+        "label": [
+            "EOA"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0xAAc0aa431c237C2C0B5f041c8e59B3f1a43aC78F",
+        "label": [
+            "EOA"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x7904Ad7c992CDAb500dAa0f3366301b1f5365B62",
+        "label": [
+            "EOA"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0xa4D1a2693589840BABb7f3A44D14Fdf41b3bF1Fe",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x81F7564e413586f1f99fDe55740Ac52b43cA99c9",
+        "label": [
+            [],
+            "!MAX_SEARCH_DEPTH"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0xFFfFfFffFFfffFFfFFfFFFFFffFFFffffFfFFFfF",
+        "label": [
+            "EOA"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x0000000000000000000000000000000000000001",
+        "label": [
+            "EOA"
+        ],
+        "reference_contracts": []
+    }
+]

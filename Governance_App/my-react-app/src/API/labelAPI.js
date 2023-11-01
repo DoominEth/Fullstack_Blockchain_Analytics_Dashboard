@@ -42,4 +42,16 @@ export const updateLabelData = async (labelName, updatedData) => {
 };
 
 
+export const getSignatureByKeyword = async (keyword) => {
+  const response = await fetch(`http://localhost:3001/api/get-signature-by-keyword?keyword=${keyword}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const data = await response.json();
+  return data;
+};
+
+
 //export const 

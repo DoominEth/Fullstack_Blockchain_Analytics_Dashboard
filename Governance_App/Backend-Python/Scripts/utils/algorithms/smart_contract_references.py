@@ -19,5 +19,17 @@ def detect_smart_contract_references(contract):
                     })
                 except Exception as e:
                     print(f"An error occurred: {e}")  # Handle exceptions here
-
+        elif outputs and outputs[0].get('type') == 'address[]':
+            print("ARRAY OF ADDRESSES DETECTED!")
+            try:
+                # Call the contract function and get the array of addresses
+                child_addresses_array = eval("contract.functions." + contractABI[i]['name'] + "().call()")
+                for address in child_addresses_array:
+                    child_addresses.append({
+                        'name': contractABI[i]['name'],
+                        'address': address
+                    })
+                print("ARRAY OF ADDRESSES ADDED")
+            except Exception as e:
+                print(f"An error occurred when retrieving array of addresses: {e}")
     return child_addresses

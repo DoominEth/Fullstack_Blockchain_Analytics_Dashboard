@@ -20,3 +20,11 @@ class web3Contract:
             print("CONTRACT: ", contractAddress)
             print("ERROR: SMART CONTRACT HAD NO ABI")
             return None
+        
+
+    def createProxyContract(self, proxyAddress, targetAddress):
+        contractAddress =  self.web3.toChecksumAddress(proxyAddress)
+        abi = self.etherscan.get_contract_abi(targetAddress)
+        contractInstance = self.web3.eth.contract(address=contractAddress, abi=abi)
+        contractInstance.labels = []
+        return contractInstance

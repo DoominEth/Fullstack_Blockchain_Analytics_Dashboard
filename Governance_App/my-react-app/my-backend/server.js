@@ -160,6 +160,25 @@ app.post('/api/update-label-data', async (req, res) => {
 });
 
 
+app.get('/api/get-signature-by-keyword', async (req, res) => {
+  
+  console.log("INSIDE THE get signature by keyword");
+  
+  try {
+    const keyword = req.query.keyword;
+    const backendUrl = `http://127.0.0.1:5000/api/get-signature-by-keyword?keyword=${keyword}`;
+    const response = await axios.get(backendUrl);
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+
+
 
 
 app.get('/api/blockchain-data', async (req, res) => {

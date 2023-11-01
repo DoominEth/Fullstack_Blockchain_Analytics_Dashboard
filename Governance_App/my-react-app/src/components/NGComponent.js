@@ -1,190 +1,251 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
-import checkLabelForImage from './LabelImageComponent'
-
-function NG({ nodes, links, width = 200, height = 100 ,onNodeClick }) {
-  const ref = useRef();
-  //Show the relationships between smart contracts
-  const [showRelationship, setShowRelationship] = useState(false);
+import { zoom } from 'd3';
+import checkLabelForImage from './LabelImageComponent';
 
 
-  //Set up bi-directional links
-  links.forEach(link => {
-    const reverseLink = links.find(l => l.source === link.target && l.target === link.source);
-    if (reverseLink) {
-      link.bidirectional = true;
-      reverseLink.bidirectional = true;
+
+
+const NG = ({ data , onNodeClick }) => {
+  const svgRef = useRef(null);
+   const [prevNodeCount, setPrevNodeCount] = useState(null);
+
+
+  const calculateIncomingEdges = () => {
+    const counts = {};
+    data.links.forEach(link => {
+      if (!counts[link.target.id]) counts[link.target.id] = 0;
+      counts[link.target.id] += 1;
+    });
+    return counts;
+  };
+
+
+  function adjustLine(source, target, radius) {
+  const dx = target.x - source.x;
+  const dy = target.y - source.y;
+  const angle = Math.atan2(dy, dx);
+  const x = target.x - Math.cos(angle) * radius;
+  const y = target.y - Math.sin(angle) * radius;
+  return [x, y];
+}
+
+const handleNodeDoubleClick = (event, node) => {
+  console.log("Node double clicked", node);
+  // Add your double click logic here
+};
+
+
+
+  const handleNodeClick = (node) => {
+    console.log("Node clicked", node);
+    let address = node.id
+    if (address) {
+      onNodeClick(address);
+      console.log(address)
     }
-  });
+  };
 
-  //Effect
-  useEffect(() => {
-    d3.select(ref.current).selectAll("*").remove();
+  
+   useEffect(() => {
+    //if (data && data.nodes && data.links) {
+       const currentNodeCount = data.nodes.length;
+      //if (prevNodeCount !== currentNodeCount) {
+        drawGraph();
+        setPrevNodeCount(currentNodeCount);
+       //}
+     //}
+  }, [data]);
 
-    nodes.forEach(node => {
-      if (!node.x) node.x = width / 2;
-      if (!node.y) node.y = height / 2;
+  const drawGraph = () => {
+  const svgElement = svgRef.current;
+  const width = svgElement.clientWidth;
+  const height = svgElement.clientHeight;
+  const svg = d3.select(svgElement);
+  
+
+  svg.selectAll("*").remove(); 
+
+  const graphGroup = svg.append("g")
+    .attr("class", "graph-group");
+
+
+ const zoomBehavior = zoom()
+    .on("zoom", (event) => {
+      graphGroup.attr("transform", event.transform);
     });
 
-    const simulation = d3.forceSimulation(nodes)
-      .force("link", d3.forceLink(links).id(d => d.id).distance(15))
-      .force("charge", d3.forceManyBody().strength(-200))
-      .force("center", d3.forceCenter(width / 2, height / 2));
+  svg.call(zoomBehavior);
 
-    for (let i = 0; i < 300; ++i) simulation.tick();
+  // Define arrowhead markers
+const defs = svg.append('defs');
+defs.append('marker')
+  .attr('id', 'arrowhead')
+  .attr('viewBox', '-0 -5 10 10')
+  .attr('refY', 0)
+  .attr('orient', 'auto')
+  .attr('markerWidth', 10)
+  .attr('markerHeight', 3)
+  .attr('xoverflow', 'visible')
+  .append('svg:path')
+  .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+  .attr("stroke", "#00008B") 
+  .attr('fill-opacity', 0.2)
+  .style('stroke', 'none');
 
-    const svg = d3.select(ref.current)
-      .attr('viewBox', [0, 0, width, height])
-      .attr('font-family', 'sans-serif')
-      .call(d3.zoom().scaleExtent([0.1, 10]).on("zoom", function(event) {
-        g.attr("transform", event.transform);
-      }));
+const filter = defs.append('filter')
+  .attr('id', 'glow')
+  .attr('x', '-50%')
+  .attr('y', '-50%')
+  .attr('width', '200%')
+  .attr('height', '200%');
 
-    const g = svg.append("g");
+filter.append('feGaussianBlur')
+  .attr('stdDeviation', '5')
+  .attr('result', 'coloredBlur');
 
-    const defs = g.append("defs");
-    defs.append("marker")
-      .attr("id", "arrowhead")
-      .attr("viewBox", "-0 -5 10 10")
-      .attr("refX", 15)
-      .attr("refY", 0)
-      .attr("orient", "auto")
-      .attr("markerWidth", 6)
-      .attr("markerHeight", 6)
-      .attr("xoverflow", "visible")
-      .append("svg:path")
-      .attr("d", "M 0,-5 L 10 ,0 L 0,5")
-      .attr("fill", "#999")
-      .style("stroke","none");
+const feMerge = filter.append('feMerge');
+feMerge.append('feMergeNode').attr('in', 'coloredBlur');
+feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
 
-    const link = g.append("g")
-      .attr("stroke", "#999")
-      .attr("stroke-opacity", 0.6)
-      .selectAll("path")
-      .data(links)
-      .join("path")
-      .attr("stroke-width", d => Math.sqrt(d.value) / 2)
-      .attr("marker-end", "url(#arrowhead)")
-      .attr("fill", "none")
-      .attr("d", d => {
-        if (d.bidirectional) {
-          const dx = d.target.x - d.source.x;
-          const dy = d.target.y - d.source.y;
-          const dr = Math.sqrt(dx * dx + dy * dy) * 2; 
-          return `M ${d.source.x},${d.source.y} A ${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
-        } else {
-          return `M ${d.source.x},${d.source.y} L ${d.target.x},${d.target.y}`;
-        }
-      });
 
-    const nodeRadius = 2
+  //SIM
+  const simulation = d3.forceSimulation(data.nodes)
+    .force("link", d3.forceLink(data.links).id(d => d.id).distance(25).strength(0.1))
+    .force("charge", d3.forceManyBody().strength(-6000))
+    .force("center", d3.forceCenter(width / 2, height / 2));
 
-    const node = g.append("g")
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 0.05)
-      .selectAll("circle")
-      .data(nodes)
-      .join("circle")
-      .attr("r", nodeRadius)
-      .attr("fill", "#69b3a2")
-      .on("click", function(event, d) {
-        //console.log("Contract Address:", d.id);
-        const linkedNodes = links.filter(link => link.source.id === d.id || link.target.id === d.id)
-                                .map(link => link.source.id === d.id ? link.target.id : link.source.id);
-        //console.log("Connected Nodes:", linkedNodes);
-        
-        onNodeClick(d.id);
-      });
+const link = graphGroup.append("g")
+  .attr("class", "links")
+  .selectAll("line")
+  .data(data.links)
+  .enter().append("line")
+  .attr("stroke-width", 5) 
+  .attr("stroke", "#00008B") 
+  .attr("stroke-opacity", 0.2)
 
-    node.append("title").text(d => d.id);
+  .attr('marker-end','url(#arrowhead)');
+    
+    //Edge Size
+     const incomingEdges = calculateIncomingEdges();
 
-    node.each(function(d, i) {
-  const imagePath = checkLabelForImage(d.label);
-  if (imagePath) {
-    d3.select(this.parentNode)
-      .append('image')
-      .attr('xlink:href', imagePath)
-      .attr('x', d.x - nodeRadius) 
-      .attr('y', d.y - nodeRadius)
-      .attr('width', nodeRadius * 2)
-      .attr('height', nodeRadius * 2)
-      .attr('pointer-events', 'none'); 
-  }
+     //Nodes
+  const node = graphGroup.append("g")
+    .selectAll("circle")
+    .data(data.nodes)
+    .enter().append("circle")
+    .attr("r", d => 10 * (1 + (incomingEdges[d.id] || 0))) 
+    .attr("fill-opacity", 0.3) 
+    .attr("stroke", "#000000")
+    .attr("stroke-width", "2px")
+    .attr("cx", d => d.x)
+    .attr("cy", d => d.y)
+    .each(function(d) {
+      d.radius = 10 * (1 + (incomingEdges[d.id] || 0)); 
+    })
+    .on("click", (event, d) => handleNodeClick(d))
+    .on("dblclick", handleNodeDoubleClick)
+    .attr('filter', 'url(#glow)'); 
+
+
+  // labels
+const labels = graphGroup.append("g")
+  .attr("class", "labels")
+  .selectAll("text")
+  .data(data.nodes)
+  .enter().append("text")
+  .raise()
+  .text(d => {
+    // Check if d.label is an array and is not empty
+    if (Array.isArray(d.label) && d.label.length > 0) {
+      return d.label.join(', ');
+    }
+    // Check if d.label is a non-empty string
+    else if (typeof d.label === 'string' && d.label.trim() !== '') {
+      return d.label;
+    }
+    // If d.label is undefined, an empty array, or an empty string, return an empty string
+    else {
+      return '';
+    }
+  })
+  .attr("fill", "white")
+  .attr("x", 6)
+  .attr("y", 3);
+
+
+//images
+    const images = graphGroup.append("g")
+      .selectAll("image")
+      .data(data.nodes)
+      .enter()
+      .append("image")
+      .attr("xlink:href", d => checkLabelForImage(d.label))
+      .attr("width", 20) // Set image size
+      .attr("height", 20)
+      .attr("x", d => d.x - 10) // Adjust the x and y to center the image
+      .attr("y", d => d.y - 10)
+       .style("pointer-events", "none"); 
+
+  // Add address
+  const address = graphGroup.append("g")
+    .attr("class", "address")
+    .selectAll("text")
+    .data(data.nodes)
+    .enter().append("text")    
+    .text(d => `${d.id.slice(0, 6)}...`)
+    .attr("fill", "white")
+    .attr("x", 6)
+    .attr("y", 3);
+
+  simulation.on("tick", () => {
+    link.each(function(d) {
+      const targetRadius = 10 * (1 + (incomingEdges[d.target.id] || 0));
+      const sourceRadius = 10 * (1 + (incomingEdges[d.source.id] || 0));
+      
+      const arrowLength = 15; //For arrowhead
+      const [x2, y2] = adjustLine(d.source, d.target, targetRadius + arrowLength);
+      const [x1, y1] = adjustLine(d.target, d.source, sourceRadius);
+      
+      d3.select(this)
+        .attr("x1", x1)
+        .attr("y1", y1)
+        .attr("x2", x2)
+        .attr("y2", y2);
+    });
+
+  // node pos
+  node
+    .attr("cx", d => d.x)
+    .attr("cy", d => d.y);
+
+  // Update address pos
+  address
+    .attr("x", d => d.x)
+    .attr("y", d => d.y);
+
+  labels
+    .attr("x", d => d.x)
+    .attr("y", d => d.y - 20);
+
+   images
+    .attr("width", d => d.radius * 2)  
+    .attr("height", d => d.radius * 2) 
+    .attr("x", d => d.x - d.radius)
+    .attr("y", d => d.y - d.radius);
 });
 
-const nodeText = g.append("g")
-  .selectAll("text")
-  .data(nodes)
-  .join("text")
-  .attr("dy", "0.35em")
-  .attr("font-size", "2px")
-  .attr("fill", "white")
-  .attr("text-anchor", "middle")
-  .text(d => {
-    const address = d.id ? `${d.id.substring(0, 7)}... ` : '';
-    const label = d.label && d.label.length ? `(${d.label.join(', ')})` : '';
-    return address + label;
-  });
 
-
-    const linkText = g.append("g")
-      .selectAll("text")
-      .data(links)
-      .join("text")
-      .attr("font-size", "2px")
-      .attr("fill", "#000")
-      .attr("text-anchor", "middle");
-
-    simulation.on("tick", () => {
-      link.attr("d", d => {
-        if (d.bidirectional) {
-          const dx = d.target.x - d.source.x;
-          const dy = d.target.y - d.source.y;
-          const dr = Math.sqrt(dx * dx + dy * dy) * 2;
-          return `M ${d.source.x},${d.source.y} A ${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
-        } else {
-          return `M ${d.source.x},${d.source.y} L ${d.target.x},${d.target.y}`;
-        }
-      });
-
-    node.attr("cx", d => d.x).attr("cy", d => d.y);
-    nodeText.attr("x", d => d.x + 10).attr("y", d => d.y);
-
-    if (showRelationship) {
-      linkText
-      .attr("x", d => {
-        if (d.bidirectional) {
-          return (d.source.x + d.target.x) / 2;
-        } else {
-          return (d.source.x + d.target.x) / 2;
-        }
-      })
-      .attr("y", d => {
-        if (d.bidirectional) {
-          const midPoint = (d.source.y + d.target.y) / 2;
-          return midPoint - 5; 
-        } else {
-          return (d.source.y + d.target.y) / 2;
-        }
-      })
-      .text(d => d.name);
-    } else {
-      linkText.text('');
-    }
-    });
-
-    return () => simulation.stop();
-  }, [nodes, links, showRelationship]);
+  };
 
   return (
-    <div>
-      <button onClick={() => setShowRelationship(!showRelationship)}>
-        Display Relationship
-      </button>
+    <div style={{ width: '100%', height: '800px' }}>
+  <svg ref={svgRef} style={{ width: '100%', height: '100%' }}>
+  </svg>
+</div>
 
-      <svg ref={ref} style={{ width: '100%', height: '100%' }}></svg>
-    </div>
+
   );
-}
+};
 
 export default NG;

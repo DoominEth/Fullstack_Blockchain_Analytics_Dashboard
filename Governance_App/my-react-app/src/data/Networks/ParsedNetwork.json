@@ -1,0 +1,467 @@
+[
+  {
+    "contract_address": "0x62B9c7356A2Dc64a1969e19C23e4f579F9810Aa7",
+    "label": [
+      "ERC20"
+    ],
+    "reference_contracts": [
+      {
+        "address": "0x8014595F2AB54cD7c604B00E9fb932176fDc86Ae",
+        "name": "operator"
+      }
+    ]
+  },
+  {
+    "contract_address": "0x8014595F2AB54cD7c604B00E9fb932176fDc86Ae",
+    "label": [],
+    "reference_contracts": [
+      {
+        "address": "Curve",
+        "name": "crv"
+      },
+      {
+        "address": "Curve",
+        "name": "escrow"
+      },
+      {
+        "address": "0x947B7742C403f20e5FaCcDAc5E092C943E7D0277",
+        "name": "feeManager"
+      },
+      {
+        "address": "0x62B9c7356A2Dc64a1969e19C23e4f579F9810Aa7",
+        "name": "minter"
+      },
+      {
+        "address": "0x989AEb4d175e16225E39E87d0D97A3360524AD80",
+        "name": "staker"
+      }
+    ]
+  },
+  {
+    "contract_address": "0x947B7742C403f20e5FaCcDAc5E092C943E7D0277",
+    "label": [
+      "EOA"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0x989AEb4d175e16225E39E87d0D97A3360524AD80",
+    "label": [],
+    "reference_contracts": [
+      {
+        "address": "Curve",
+        "name": "crv"
+      },
+      {
+        "address": "0x8014595F2AB54cD7c604B00E9fb932176fDc86Ae",
+        "name": "depositor"
+      },
+      {
+        "address": "Curve",
+        "name": "escrow"
+      },
+      {
+        "address": "Curve",
+        "name": "gaugeController"
+      },
+      {
+        "address": "Curve",
+        "name": "mintr"
+      },
+      {
+        "address": "0xF403C135812408BFbE8713b5A23a04b3D48AAE31",
+        "name": "operator"
+      },
+      {
+        "address": "0x2B83552729067D1c32A2a31024776BD83c48816e",
+        "name": "owner"
+      }
+    ]
+  },
+  {
+    "contract_address": "0xF403C135812408BFbE8713b5A23a04b3D48AAE31",
+    "label": [],
+    "reference_contracts": [
+      {
+        "address": "Curve",
+        "name": "crv"
+      },
+      {
+        "address": "0xA464e6DCda8AC41e03616F95f4BC98a13b8922Dc",
+        "name": "feeDistro"
+      },
+      {
+        "address": "0xa3C5A1e09150B75ff251c1a7815A07182c3de2FB",
+        "name": "feeManager"
+      },
+      {
+        "address": "0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490",
+        "name": "feeToken"
+      },
+      {
+        "address": "0x7091dbb7fcbA54569eF1387Ac89Eb2a5C9F6d2EA",
+        "name": "lockFees"
+      },
+      {
+        "address": "0x3Fe65692bfCD0e6CF84cB1E7d24108E434A7587e",
+        "name": "lockRewards"
+      },
+      {
+        "address": "0x4e3FBD56CD56c3e72c1403e103b45Db9da5B9D2B",
+        "name": "minter"
+      },
+      {
+        "address": "0x3cE6408F923326f81A7D7929952947748180f1E6",
+        "name": "owner"
+      },
+      {
+        "address": "0x5F47010F230cE1568BeA53a06eBAF528D05c5c1B",
+        "name": "poolManager"
+      },
+      {
+        "address": "0x0000000022D53366457F9d5E68Ec105046FC4383",
+        "name": "registry"
+      },
+      {
+        "address": "0x25E12482a25CF36EC70fDA2A09C1ED077Fc21616",
+        "name": "rewardArbitrator"
+      },
+      {
+        "address": "0xEdCCB35798fae4925718A43cc608aE136208aa8D",
+        "name": "rewardFactory"
+      },
+      {
+        "address": "0x989AEb4d175e16225E39E87d0D97A3360524AD80",
+        "name": "staker"
+      },
+      {
+        "address": "0xCF50b810E57Ac33B91dCF525C6ddd9881B139332",
+        "name": "stakerRewards"
+      },
+      {
+        "address": "0x884da067B66677e72530df91eabb6e3CE69c2bE4",
+        "name": "stashFactory"
+      },
+      {
+        "address": "0x3c995e43E6ddD551E226F4c5544C77BfeD147aB9",
+        "name": "tokenFactory"
+      },
+      {
+        "address": "0x1389388d01708118b497f59521f6943Be2541bb7",
+        "name": "treasury"
+      },
+      {
+        "address": "0x5349ffba494aC3c888ffa16fD438F44B8c67fB07",
+        "name": "voteDelegate"
+      },
+      {
+        "address": "0xE478de485ad2fe566d49342Cbd03E49ed7DB3356",
+        "name": "voteOwnership"
+      },
+      {
+        "address": "0xBCfF8B0b9419b9A88c44546519b1e909cF330399",
+        "name": "voteParameter"
+      }
+    ]
+  },
+  {
+    "contract_address": "0x2B83552729067D1c32A2a31024776BD83c48816e",
+    "label": [],
+    "reference_contracts": [
+      {
+        "address": "0xD364E384aa788C16a99DA7157a6BC0dE1CBfC71e",
+        "name": "boosterPlaceholder"
+      },
+      {
+        "address": "0xa3C5A1e09150B75ff251c1a7815A07182c3de2FB",
+        "name": "owner"
+      },
+      {
+        "address": "Curve",
+        "name": "pendingowner"
+      },
+      {
+        "address": "0x989AEb4d175e16225E39E87d0D97A3360524AD80",
+        "name": "voterproxy"
+      }
+    ]
+  },
+  {
+    "contract_address": "0xA464e6DCda8AC41e03616F95f4BC98a13b8922Dc",
+    "label": [
+      [],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0xa3C5A1e09150B75ff251c1a7815A07182c3de2FB",
+    "label": [
+      "GnosisSafeProxy"
+    ],
+    "reference_contracts": [
+      {
+        "address": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        "name": "Implementation"
+      },
+      {
+        "address": "0x49e5097f627e400F2a377D5FD7E712d1E0e16FC2",
+        "name": "getOwners"
+      },
+      {
+        "address": "0x17e06ce6914E3969f7BD37D8b2a563890cA1c96e",
+        "name": "getOwners"
+      },
+      {
+        "address": "0xAdE9e51C9E23d64E538A7A38656B78aB6Bcc349e",
+        "name": "getOwners"
+      },
+      {
+        "address": "0xAAc0aa431c237C2C0B5f041c8e59B3f1a43aC78F",
+        "name": "getOwners"
+      },
+      {
+        "address": "0x7904Ad7c992CDAb500dAa0f3366301b1f5365B62",
+        "name": "getOwners"
+      }
+    ]
+  },
+  {
+    "contract_address": "0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490",
+    "label": [
+      [
+        "ERC20"
+      ],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0x7091dbb7fcbA54569eF1387Ac89Eb2a5C9F6d2EA",
+    "label": [
+      [],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0x3Fe65692bfCD0e6CF84cB1E7d24108E434A7587e",
+    "label": [
+      [],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0x4e3FBD56CD56c3e72c1403e103b45Db9da5B9D2B",
+    "label": [
+      [
+        "ERC20"
+      ],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0x3cE6408F923326f81A7D7929952947748180f1E6",
+    "label": [
+      [],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0x5F47010F230cE1568BeA53a06eBAF528D05c5c1B",
+    "label": [
+      [],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0x0000000022D53366457F9d5E68Ec105046FC4383",
+    "label": [
+      [],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0x25E12482a25CF36EC70fDA2A09C1ED077Fc21616",
+    "label": [
+      [],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0xEdCCB35798fae4925718A43cc608aE136208aa8D",
+    "label": [
+      [],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0xCF50b810E57Ac33B91dCF525C6ddd9881B139332",
+    "label": [
+      [],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0x884da067B66677e72530df91eabb6e3CE69c2bE4",
+    "label": [
+      [],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0x3c995e43E6ddD551E226F4c5544C77BfeD147aB9",
+    "label": [
+      [],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0x1389388d01708118b497f59521f6943Be2541bb7",
+    "label": [
+      [],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0x5349ffba494aC3c888ffa16fD438F44B8c67fB07",
+    "label": [
+      [],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0xE478de485ad2fe566d49342Cbd03E49ed7DB3356",
+    "label": [
+      "EIP-897 DelegateProxy"
+    ],
+    "reference_contracts": [
+      {
+        "address": "0xa4D1a2693589840BABb7f3A44D14Fdf41b3bF1Fe",
+        "name": "Implementation"
+      },
+      {
+        "address": "Curve",
+        "name": "getRecoveryVault"
+      },
+      {
+        "address": "Curve",
+        "name": "getEVMScriptRegistry"
+      },
+      {
+        "address": "Curve",
+        "name": "kernel"
+      },
+      {
+        "address": "Curve",
+        "name": "token"
+      }
+    ]
+  },
+  {
+    "contract_address": "0xBCfF8B0b9419b9A88c44546519b1e909cF330399",
+    "label": [
+      "EIP-897 DelegateProxy"
+    ],
+    "reference_contracts": [
+      {
+        "address": "0xa4D1a2693589840BABb7f3A44D14Fdf41b3bF1Fe",
+        "name": "Implementation"
+      },
+      {
+        "address": "Curve",
+        "name": "getRecoveryVault"
+      },
+      {
+        "address": "Curve",
+        "name": "getEVMScriptRegistry"
+      },
+      {
+        "address": "Curve",
+        "name": "kernel"
+      },
+      {
+        "address": "Curve",
+        "name": "token"
+      }
+    ]
+  },
+  {
+    "contract_address": "0xD364E384aa788C16a99DA7157a6BC0dE1CBfC71e",
+    "label": [
+      [],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+    "label": [
+      [],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0x49e5097f627e400F2a377D5FD7E712d1E0e16FC2",
+    "label": [
+      "EOA"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0x17e06ce6914E3969f7BD37D8b2a563890cA1c96e",
+    "label": [
+      "EOA"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0xAdE9e51C9E23d64E538A7A38656B78aB6Bcc349e",
+    "label": [
+      "EOA"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0xAAc0aa431c237C2C0B5f041c8e59B3f1a43aC78F",
+    "label": [
+      "EOA"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0x7904Ad7c992CDAb500dAa0f3366301b1f5365B62",
+    "label": [
+      "EOA"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "0xa4D1a2693589840BABb7f3A44D14Fdf41b3bF1Fe",
+    "label": [
+      [],
+      "!MAX_SEARCH_DEPTH"
+    ],
+    "reference_contracts": []
+  },
+  {
+    "contract_address": "Curve",
+    "label": [
+      "SpecialNode"
+    ],
+    "reference_contracts": []
+  }
+]

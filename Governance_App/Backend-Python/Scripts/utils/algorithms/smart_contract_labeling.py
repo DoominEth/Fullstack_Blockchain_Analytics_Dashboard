@@ -1,10 +1,12 @@
 #from utils.database.eventHashDB import save_event_hash_to_database, get_event_hash_by_contract_address
 from utils.database.eventLabelDB import get_unique_label_names, get_all_event_labels_by_label_name
 from utils.helpers.service_helpers import hash_log_events
+from utils.database.etherFaceSigDB import get_signatures_by_keyword
+
 def smart_contract_labeler(contract_address):
     all_labels = get_unique_label_names()
     contract_hash = hash_log_events(contract_address)
-
+    etherFaceSigs = get_signatures_by_keyword('Vote')
     stop = False
 
     if contract_hash is None:
@@ -15,6 +17,9 @@ def smart_contract_labeler(contract_address):
     matching_labels = []
     stop_on_match_results = [] 
     
+    if contract_hash['event_signature'].isin(etherFaceSigs['hash']).any():
+        matching_labels.append("PotentialVote")
+
     for label in all_labels:
         label_event_labels = get_all_event_labels_by_label_name(label)
         label_event_labels_filtered = label_event_labels[label_event_labels['include'] == True]
@@ -35,6 +40,7 @@ def smart_contract_labeler(contract_address):
         if matchingDecimal >= percentage_match_for_current_label:
             matching_labels.append(label)
             stop_on_match_results.append(label_event_labels['stop_on_match'].iloc[0])
+
     
 
 

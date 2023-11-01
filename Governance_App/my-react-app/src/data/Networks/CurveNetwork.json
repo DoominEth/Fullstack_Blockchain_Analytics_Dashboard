@@ -1,0 +1,295 @@
+[
+    {
+        "contract_address": "0xD533a949740bb3306d119CC777fa900bA034cd52",
+        "label": [
+            "ERC20"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0xd061D61a4d941c39E5453435B6345Dc261C2fcE0",
+                "name": "minter"
+            },
+            {
+                "address": "0x40907540d8a6C65c637785e8f8B742ae6b0b9968",
+                "name": "admin"
+            }
+        ]
+    },
+    {
+        "contract_address": "0xd061D61a4d941c39E5453435B6345Dc261C2fcE0",
+        "label": [],
+        "reference_contracts": [
+            {
+                "address": "0xD533a949740bb3306d119CC777fa900bA034cd52",
+                "name": "token"
+            },
+            {
+                "address": "0x2F50D538606Fa9EDD2B11E2446BEb18C9D5846bB",
+                "name": "controller"
+            }
+        ]
+    },
+    {
+        "contract_address": "0x40907540d8a6C65c637785e8f8B742ae6b0b9968",
+        "label": [
+            "EIP-897 DelegateProxy"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0x3A93C17FC82CC33420d1809dDA9Fb715cc89dd37",
+                "name": "Implementation"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "getRecoveryVault"
+            },
+            {
+                "address": "0x1b13e8E7b85b2F92CA4436F98F88CE169f63D567",
+                "name": "getEVMScriptRegistry"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "designatedSigner"
+            },
+            {
+                "address": "0xad06868167BC5Ac5cFcbEf2CAFa82bc76961D72d",
+                "name": "kernel"
+            }
+        ]
+    },
+    {
+        "contract_address": "0x2F50D538606Fa9EDD2B11E2446BEb18C9D5846bB",
+        "label": [
+            "PotentialVote",
+            "GaugeController"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0x40907540d8a6C65c637785e8f8B742ae6b0b9968",
+                "name": "admin"
+            },
+            {
+                "address": "0x40907540d8a6C65c637785e8f8B742ae6b0b9968",
+                "name": "future_admin"
+            },
+            {
+                "address": "0xD533a949740bb3306d119CC777fa900bA034cd52",
+                "name": "token"
+            },
+            {
+                "address": "0x5f3b5DfEb7B28CDbD7FAba78963EE202a494e2A2",
+                "name": "voting_escrow"
+            }
+        ]
+    },
+    {
+        "contract_address": "0x3A93C17FC82CC33420d1809dDA9Fb715cc89dd37",
+        "label": [],
+        "reference_contracts": [
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "designatedSigner"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "kernel"
+            }
+        ]
+    },
+    {
+        "contract_address": "0x0000000000000000000000000000000000000000",
+        "label": [
+            "Burn"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x1b13e8E7b85b2F92CA4436F98F88CE169f63D567",
+        "label": [
+            "EIP-897 DelegateProxy"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0xBF1Ce0Bc4EdaAD8e576b3b55e19c4C15Cf6999eb",
+                "name": "Implementation"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "getRecoveryVault"
+            },
+            {
+                "address": "0x1b13e8E7b85b2F92CA4436F98F88CE169f63D567",
+                "name": "getEVMScriptRegistry"
+            },
+            {
+                "address": "0xad06868167BC5Ac5cFcbEf2CAFa82bc76961D72d",
+                "name": "kernel"
+            }
+        ]
+    },
+    {
+        "contract_address": "0xad06868167BC5Ac5cFcbEf2CAFa82bc76961D72d",
+        "label": [
+            "EIP-897 DelegateProxy"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0x2b33CF282f867A7FF693A66e11B0FcC5552e4425",
+                "name": "Implementation"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "getRecoveryVault"
+            },
+            {
+                "address": "0xBd0697BA421e7fEc529E3E76D9e9F3a710490369",
+                "name": "acl"
+            }
+        ]
+    },
+    {
+        "contract_address": "0x5f3b5DfEb7B28CDbD7FAba78963EE202a494e2A2",
+        "label": [
+            "veToken"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0xD533a949740bb3306d119CC777fa900bA034cd52",
+                "name": "token"
+            },
+            {
+                "address": "0xc4AD0Ef33A0A4ddA3461c479ccb6c36d1e4B7Be4",
+                "name": "controller"
+            },
+            {
+                "address": "0xca719728Ef172d0961768581fdF35CB116e0B7a4",
+                "name": "future_smart_wallet_checker"
+            },
+            {
+                "address": "0xca719728Ef172d0961768581fdF35CB116e0B7a4",
+                "name": "smart_wallet_checker"
+            },
+            {
+                "address": "0x40907540d8a6C65c637785e8f8B742ae6b0b9968",
+                "name": "admin"
+            },
+            {
+                "address": "0x40907540d8a6C65c637785e8f8B742ae6b0b9968",
+                "name": "future_admin"
+            }
+        ]
+    },
+    {
+        "contract_address": "0xBF1Ce0Bc4EdaAD8e576b3b55e19c4C15Cf6999eb",
+        "label": [],
+        "reference_contracts": [
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "kernel"
+            }
+        ]
+    },
+    {
+        "contract_address": "0x2b33CF282f867A7FF693A66e11B0FcC5552e4425",
+        "label": [],
+        "reference_contracts": [
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "getRecoveryVault"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "acl"
+            }
+        ]
+    },
+    {
+        "contract_address": "0xBd0697BA421e7fEc529E3E76D9e9F3a710490369",
+        "label": [
+            "EIP-897 DelegateProxy"
+        ],
+        "reference_contracts": [
+            {
+                "address": "0x81F7564e413586f1f99fDe55740Ac52b43cA99c9",
+                "name": "Implementation"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "getRecoveryVault"
+            },
+            {
+                "address": "0x1b13e8E7b85b2F92CA4436F98F88CE169f63D567",
+                "name": "getEVMScriptRegistry"
+            },
+            {
+                "address": "0xFFfFfFffFFfffFFfFFfFFFFFffFFFffffFfFFFfF",
+                "name": "ANY_ENTITY"
+            },
+            {
+                "address": "0xad06868167BC5Ac5cFcbEf2CAFa82bc76961D72d",
+                "name": "kernel"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000001",
+                "name": "BURN_ENTITY"
+            }
+        ]
+    },
+    {
+        "contract_address": "0xc4AD0Ef33A0A4ddA3461c479ccb6c36d1e4B7Be4",
+        "label": [
+            "EOA"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0xca719728Ef172d0961768581fdF35CB116e0B7a4",
+        "label": [],
+        "reference_contracts": [
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "checker"
+            },
+            {
+                "address": "0x40907540d8a6C65c637785e8f8B742ae6b0b9968",
+                "name": "dao"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "future_checker"
+            }
+        ]
+    },
+    {
+        "contract_address": "0x81F7564e413586f1f99fDe55740Ac52b43cA99c9",
+        "label": [],
+        "reference_contracts": [
+            {
+                "address": "0xFFfFfFffFFfffFFfFFfFFFFFffFFFffffFfFFFfF",
+                "name": "ANY_ENTITY"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000000",
+                "name": "kernel"
+            },
+            {
+                "address": "0x0000000000000000000000000000000000000001",
+                "name": "BURN_ENTITY"
+            }
+        ]
+    },
+    {
+        "contract_address": "0xFFfFfFffFFfffFFfFFfFFFFFffFFFffffFfFFFfF",
+        "label": [
+            "EOA"
+        ],
+        "reference_contracts": []
+    },
+    {
+        "contract_address": "0x0000000000000000000000000000000000000001",
+        "label": [
+            "EOA"
+        ],
+        "reference_contracts": []
+    }
+]

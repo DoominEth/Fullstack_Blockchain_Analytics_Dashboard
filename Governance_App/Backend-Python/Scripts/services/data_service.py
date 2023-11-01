@@ -24,6 +24,9 @@ from utils.algorithms.BFS_smart_contract_references import bfs_contract_referenc
 from utils.helpers.service_helpers import hash_log_events
 #from utils.algorithms.vyperEventParser import extract_events_vyper
 
+from utils.helpers.etherFaceSigLibary import getEtherFaceLibrary
+from utils.database.etherFaceSigDB import get_signatures_by_keyword, save_df_to_etherface_database
+
 
 
 def get_data_service():
@@ -36,6 +39,7 @@ def get_data_service():
 #Raw Smart Contract Logs
 def build_smart_contract_service(contract_address, start_block, end_block):
     # Validation To do: move this to own function
+
     if not all([contract_address, start_block, end_block]):
         print("FAIL All fields")
         raise ValidationError("Missing parameters")
@@ -194,11 +198,9 @@ def get_unique_label_names_service():
 
 def test_function_service(smartContractAddress):
     #data = smart_contract_labeler(smartContractAddress)
-    data = bfs_contract_reference(smartContractAddress, 5)
-
+    data = bfs_contract_reference(smartContractAddress, 3)
 
     return data
-
 
 def get_label_info_by_names_service(labelName):
     labelInfo = get_all_event_labels_by_label_name(labelName)
@@ -213,3 +215,20 @@ def update_label_data_service(data):
         event_signature = label['event_signature']
         include = label['include']
         update_event_label(label_name, event_signature, include, stop_on_match, percentage_match)
+
+
+def etherface_service(keyword):
+
+    print("KEYWORD: ", keyword)
+    print("KEYWORD: ", keyword)
+    fetched_data = get_signatures_by_keyword(keyword)
+
+    if fetched_data.empty:
+            df = getEtherFaceLibrary(keyword)
+            
+            save_df_to_etherface_database(df)
+            
+            fetched_data = get_signatures_by_keyword(keyword)
+            return fetched_data
+    
+    return fetched_data

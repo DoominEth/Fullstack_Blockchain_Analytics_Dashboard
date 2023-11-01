@@ -7,6 +7,7 @@ import SettingsPage from './pages/SettingsPage';
 import { Box, Container, Grid } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+
 const initialTheme = createTheme();
 
 const theme = createTheme(initialTheme, {
@@ -22,8 +23,6 @@ const theme = createTheme(initialTheme, {
     }
   }
 });
-
-    
 
 
 function App() {
@@ -43,11 +42,13 @@ return (
           <Grid container direction="column" spacing={2}>
             <Grid item xs={12}>
               <SearchComponent onSearch={setSearchData} />
+
             </Grid>
             <Grid item xs={12}>
               <Routes>
-                <Route path="/" element={<HomePage data={searchData} />} />
+                <Route path="/" element={<HomePage test={true} data={searchData} />} />
                 <Route path="/SettingsPage" element={<SettingsPage />} />
+
               </Routes>
             </Grid>
           </Grid>
