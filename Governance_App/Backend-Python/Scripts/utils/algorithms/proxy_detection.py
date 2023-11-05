@@ -17,16 +17,20 @@ FUNCTION_PATTERNS = [
 
 def detect_proxy_target(proxy_address):
     # Check storage patterns
-    print("We are in the detect proxy!!!!!!!!!!!!!!!!")
+    #print("We are in the detect proxy!!!!!!!!!!!!!!!!")
     checkSum = Config.web3.toChecksumAddress(proxy_address)
-    print("CHECKSUM!!!!!! : ", checkSum)
+    #print("CHECKSUM!!!!!! : ", checkSum)
 
 
     for pattern in STORAGE_PATTERNS:
+        print("Checking Storage for proxy")
         value = Config.web3.eth.get_storage_at(checkSum, pattern["slot"])
         value_hex = value.hex()
-        if value and value != 0 and len(value_hex) == 42 and value_hex != '0x0000000000000000000000000000000000000000':
-            return (pattern["name"], Config.web3.toChecksumAddress(value_hex))
+        
+        if value and value != 0 and len(value_hex) == 66 and value_hex != '0x0000000000000000000000000000000000000000000000000000000000000000':
+            #print("Proxy in Storage Detected")
+            #print(value_hex)
+            return (pattern["name"], Config.web3.toChecksumAddress( '0x' + value_hex[26:]))
 
     for pattern in FUNCTION_PATTERNS:
         try:
@@ -35,6 +39,8 @@ def detect_proxy_target(proxy_address):
                 # Extract the relevant part of the address
                 relevant_address_part = result.hex()[-40:]
                 formatted_address = '0x' + relevant_address_part
+                
+                print("Proxy in Func Sig Detected")
                 return (pattern["name"], Config.web3.toChecksumAddress(formatted_address))
         except ContractLogicError:
             continue 

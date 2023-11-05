@@ -94,8 +94,8 @@ def bfs_contract_reference(contract_address, max_depth):
 
         ### LABELING END
 
-        for child in children:
-            print('Child' , child)
+        # for child in children:
+        #     print('Child' , child)
 
         # Add children to the BFS queue
         for child in children:

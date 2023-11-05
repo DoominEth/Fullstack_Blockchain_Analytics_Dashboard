@@ -12,7 +12,9 @@ import ParsedNetworkData from '../data/Networks/ParsedNetwork.json'
 
 import TestComponent from '../components/TextBoxComponent';
 
-//Node data
+
+
+//Node data to be prepared for the Node graph
 const transformData = (data, commonNodes = []) => {
   const nodes = commonNodes.map(node => ({ id: node.contract_address, label: node.label }));
   const links = [];
@@ -30,34 +32,18 @@ const transformData = (data, commonNodes = []) => {
           name: reference.name,
           value: 1
         });
-      });
+      }); 
     }
   });
 
   return { nodes, links };
 };
 
-// const transformData = (data) => {
-//   const nodes = new Map();
-//   const links = [];
-
-//   data.forEach(d => {
-//     nodes.set(d.contract_address, { id: d.contract_address, label: d.label });
-
-//     d.reference_contracts.forEach(rc => {
-//       nodes.set(rc.address, { id: rc.address });
-//       links.push({ source: d.contract_address, target: rc.address, name: rc.name });
-//     });
-//   });
-
-//   return { nodes: Array.from(nodes.values()), links };
-// };
-
-
 
 function HomePage({ data, test }) {
   const [selectedNode, setSelectedNode] = useState(null);
 
+  
   useEffect(() => {
     console.log('Selected Node:', selectedNode);
   }, [selectedNode]);
@@ -67,7 +53,7 @@ function HomePage({ data, test }) {
   const transformedData = dataSource ? transformData(dataSource) : null;
 
   if (!transformedData) {
-    return 'Data not available'; // or any other error state component
+    return 'Data not available'; //place holder
   }
 
   return (
@@ -77,7 +63,7 @@ function HomePage({ data, test }) {
         <Grid item xs={9}>
           <CardWrapper title="Network Diagram">
             {transformedData && <NG data={transformedData} onNodeClick={setSelectedNode} />}
-            {/* <NG nodes={transformedData.nodes} links={transformedData.links} onNodeClick={setSelectedNode} /> */}
+            {/* <NG nodes={transformedData.nodes} links={transformedData.links} onNodeClick={setSelectedNode} /> */}{/*Old way of doing Node graph*/}
           </CardWrapper>
         </Grid>
         <Grid item xs={3}>

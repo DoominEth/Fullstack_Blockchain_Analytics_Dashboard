@@ -8,7 +8,7 @@ import { buildSmartContractData,
   fetchContractReferences, 
   fetchTestData } from '../API/initialContractDataAPI';
 
-  import {getSignatureByKeyword} from '../API/labelAPI'
+  import {getSignatureByKeyword, runBenchmark} from '../API/labelAPI'
 
 const SearchComponent = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -25,6 +25,12 @@ const SearchComponent = ({ onSearch }) => {
 
     const keyword = "Vote";
     const signatureData = await getSignatureByKeyword(keyword);
+
+    //const benchmark = await runBenchmark();
+
+    //console.log(benchmark)
+
+
     console.log(signatureData);
 
 

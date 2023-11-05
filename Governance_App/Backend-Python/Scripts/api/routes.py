@@ -16,6 +16,7 @@ from services.data_service import (
 )
 from utils.helpers.validation import ValidationError 
 from utils.config import Web3
+from utils.helpers.benchmarks.benchmark import run_benchmark
 
 api_bp = Blueprint('api', __name__)
 
@@ -220,6 +221,17 @@ def get_signature_by_keyword_route():
         return jsonify(data=signature_info, status="Signature info retrieved successfully")
 
     return jsonify(error="Unable to retrieve signature info"), 500
+
+@api_bp.route('/run-benchmark', methods=['GET'])
+def run_benchmark_route():
+    print("Running benchmark")
+    try:
+        results = run_benchmark()
+        if "error" in results:
+            return jsonify(results), 500
+        return jsonify({"results": results, "status": "Benchmark Successful"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 

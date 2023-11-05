@@ -175,8 +175,18 @@ app.get('/api/get-signature-by-keyword', async (req, res) => {
   }
 });
 
+app.get('/api/run-benchmark', async (req, res) => {
+  console.log("INSIDE THE run benchmark");
 
-
+  try {
+    const backendUrl = `http://127.0.0.1:5000/api/run-benchmark`;
+    const response = await axios.get(backendUrl);
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
 

@@ -4,6 +4,7 @@ import SearchGitHubComponent from '../components/SearchGitHubComponent';
 import { fetchUniqueLabelNames, getLabelInfoByName } from '../API/labelAPI';
 import CardWrapper from '../components/CardWrapper';
 import LabelSettings from '../components/LabelInfoComponent';
+import BenchmarkComponent from '../components/BenchmarkComponent';
 
 
 function SettingsPage() {
@@ -33,9 +34,9 @@ function SettingsPage() {
           <h2>Create New Label</h2>
           <SearchGitHubComponent />
           </CardWrapper>
-        </Grid>
-        <Grid item xs={12} >
-          <CardWrapper>
+      </Grid>
+      <Grid item xs={12} >
+        <CardWrapper>
           <h2>Labels</h2>
           {labels.map((label, index) => (
             <Button
@@ -48,13 +49,18 @@ function SettingsPage() {
             </Button>
           ))}
           </CardWrapper>
-        </Grid>
-        <Grid item xs={12} >
+      </Grid>
+      <Grid item xs={12} >
         <CardWrapper>
         <h2>Label Settings</h2>
-  {labelInfo && <LabelSettings info={labelInfo} selectedLabelName={selectedLabelName} />}
+          {labelInfo && <LabelSettings info={labelInfo} selectedLabelName={selectedLabelName} />}
         </CardWrapper>
         </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <CardWrapper>
+        <BenchmarkComponent/>
+        </CardWrapper>
       </Grid>
     </Container>
   );

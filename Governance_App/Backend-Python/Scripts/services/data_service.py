@@ -198,7 +198,7 @@ def get_unique_label_names_service():
 
 def test_function_service(smartContractAddress):
     #data = smart_contract_labeler(smartContractAddress)
-    data = bfs_contract_reference(smartContractAddress, 3)
+    data = bfs_contract_reference(smartContractAddress, 5)
 
     return data
 

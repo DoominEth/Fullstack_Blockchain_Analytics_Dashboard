@@ -48,13 +48,13 @@ const handleNodeDoubleClick = (event, node) => {
 
   
    useEffect(() => {
-    //if (data && data.nodes && data.links) {
+    if (data && data.nodes && data.links) {
        const currentNodeCount = data.nodes.length;
-      //if (prevNodeCount !== currentNodeCount) {
+      if (prevNodeCount !== currentNodeCount) {
         drawGraph();
         setPrevNodeCount(currentNodeCount);
-       //}
-     //}
+      }
+     }
   }, [data]);
 
   const drawGraph = () => {

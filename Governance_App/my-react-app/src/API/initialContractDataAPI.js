@@ -1,4 +1,6 @@
 // api.js
+import { saveAs } from 'file-saver';
+
 export const buildSmartContractData = async (contractAddress, startBlock, endBlock) => {
   const response = await fetch('http://localhost:3001/api/build-smart-contract-data', {
     method: 'POST',

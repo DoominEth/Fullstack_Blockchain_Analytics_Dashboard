@@ -54,4 +54,16 @@ export const getSignatureByKeyword = async (keyword) => {
 };
 
 
+export const runBenchmark = async () => {
+  const response = await fetch('http://localhost:3001/api/run-benchmark', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const data = await response.json();
+  return data;
+};
+
+
 //export const 

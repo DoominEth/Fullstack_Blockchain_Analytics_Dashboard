@@ -16,7 +16,7 @@ const TestComponent = () => {
 
   return (
     <div>
-      Check the console for processed data output.
+      data in console.
     </div>
   );
 };

@@ -43,10 +43,10 @@ return (
             <Grid item xs={12}>
               <SearchComponent onSearch={setSearchData} />
 
-            </Grid>
+            </Grid> 
             <Grid item xs={12}>
               <Routes>
-                <Route path="/" element={<HomePage test={true} data={searchData} />} />
+                <Route path="/" element={<HomePage test={false} data={searchData} />} />
                 <Route path="/SettingsPage" element={<SettingsPage />} />
 
               </Routes>
